@@ -389,8 +389,8 @@
     </div>
 
     <h1 class="hero-name">Jack <em>Foster</em></h1>
-    <p class="hero-school">Sixth Form &nbsp;·&nbsp; [Your School] &nbsp;·&nbsp; A-Levels</p>
-    <a href="mailto:your@email.com" class="hero-email">your@email.com</a>
+    <p class="hero-school">Sixth Form &nbsp;·&nbsp; King Edward VI Grammar School &nbsp;·&nbsp; A-Levels</p>
+    <a href="mailto:your@email.com" class="hero-email">jrfoster2009@hotmail.com</a>
 
     <div class="scroll-hint">
       <span>Scroll</span>
