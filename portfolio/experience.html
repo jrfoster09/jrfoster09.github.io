@@ -1,0 +1,382 @@
+---
+layout: default
+title: Experience
+label: Academics & Work
+---
+
+<style>
+  /* ============================================================
+     TIMELINE LAYOUT
+  ============================================================ */
+  .timeline {
+    position: relative;
+    padding: 0 0 40px 0;
+  }
+
+  /* the vertical gold line */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      var(--gold),
+      rgba(201,168,76,0.3) 80%,
+      transparent
+    );
+  }
+
+  /* ============================================================
+     MAJOR MILESTONE — large dot, bold heading (GCSEs, A-Levels, Uni)
+  ============================================================ */
+  .milestone {
+    position: relative;
+    padding: 0 0 48px 54px;
+  }
+
+  /* large gold dot */
+  .milestone::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 12px rgba(201,168,76,0.25);
+  }
+
+  /* gold ring pulse on milestone dot */
+  .milestone::after {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 0px;
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .milestone-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+
+  .milestone-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  .milestone-school {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 6px;
+  }
+
+  .milestone-summary {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-soft);
+    margin-top: 10px;
+    line-height: 1.7;
+  }
+
+  /* subject/grade tags */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 5px 12px;
+  }
+
+  .tag.gold {
+    color: var(--gold);
+    border-color: rgba(201,168,76,0.45);
+  }
+
+  /* grade badge */
+  .grade-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .grade-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border, rgba(255,255,255,0.06));
+    padding: 8px 14px;
+  }
+
+  .grade-subject {
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--white-soft);
+    letter-spacing: 0.04em;
+  }
+
+  .grade-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  /* projected label */
+  .projected-note {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 10px;
+    opacity: 0.7;
+  }
+
+  /* ============================================================
+     WORK EXPERIENCE — small dot, compact card
+  ============================================================ */
+  .work-item {
+    position: relative;
+    padding: 0 0 40px 54px;
+  }
+
+  /* small dot */
+  .work-item::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 7px;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background: #141414;
+    border: 1px solid rgba(201,168,76,0.5);
+  }
+
+  /* inner dot fill */
+  .work-item::after {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 13px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.7;
+  }
+
+  .work-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    margin-top: 2px;
+    opacity: 0.8;
+  }
+
+  .work-card {
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 20px 22px;
+    position: relative;
+    background: rgba(255,255,255,0.015);
+  }
+
+  /* left accent bar */
+  .work-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .work-org {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+
+  .work-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 0.03em;
+    margin-bottom: 10px;
+  }
+
+  .work-bio {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.75;
+  }
+
+  /* ============================================================
+     FUTURE / ASPIRATIONAL milestone — slightly dimmed
+  ============================================================ */
+  .milestone.future .milestone-title,
+  .milestone.future .milestone-date {
+    opacity: 0.6;
+  }
+
+  .milestone.future::before {
+    background: transparent;
+    border-style: dashed;
+    border-color: rgba(201,168,76,0.4);
+    box-shadow: none;
+  }
+
+  .future-note {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 8px;
+    opacity: 0.6;
+  }
+
+</style>
+
+<div class="timeline">
+
+  <!-- ── GCSE MILESTONE ── -->
+  <div class="milestone reveal">
+    <div class="milestone-date">2020 – 2025</div>
+    <div class="milestone-title">GCSEs</div>
+    <div class="milestone-school">King Edward VI Grammar School, Chelmsford</div>
+    <div class="milestone-summary">Completed 12 GCSEs achieving grades 7–9 across all subjects.</div>
+    <div class="grade-row">
+      <div class="grade-item">
+        <span class="grade-subject">Mathematics</span>
+        <span class="grade-value">8</span>
+      </div>
+      <div class="grade-item">
+        <span class="grade-subject">English</span>
+        <span class="grade-value">8</span>
+      </div>
+      <div class="grade-item">
+        <span class="grade-subject">Physics</span>
+        <span class="grade-value">8</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CPW WORK EXPERIENCE ── -->
+  <div class="work-item reveal">
+    <div class="work-date">June 2025</div>
+    <div class="work-card">
+      <div class="work-org">Couch, Perry &amp; Wilkes · Mechanical Engineering Consultancy</div>
+      <div class="work-title">Student Work Experience</div>
+      <p class="work-bio">
+        Undertook a two-week placement at CPW, a multidisciplinary engineering consultancy,
+        gaining hands-on exposure to professional mechanical engineering practice. Worked
+        alongside qualified engineers, developing proficiency in industry-standard software
+        including CAD and Revit, and attended client and team meetings to build a broader
+        understanding of how engineering principles are applied in commercial projects.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── A-LEVELS MILESTONE ── -->
+  <div class="milestone reveal">
+    <div class="milestone-date">2025 – 2027</div>
+    <div class="milestone-title">A-Levels</div>
+    <div class="milestone-school">King Edward VI Grammar School, Chelmsford</div>
+    <div class="tag-row">
+      <span class="tag">Mathematics</span>
+      <span class="tag">Physics</span>
+      <span class="tag">Geography</span>
+      <span class="tag">Design &amp; Technology</span>
+    </div>
+    <div class="grade-row" style="margin-top:16px;">
+      <div class="grade-item">
+        <span class="grade-subject">Mathematics</span>
+        <span class="grade-value">A</span>
+      </div>
+      <div class="grade-item">
+        <span class="grade-subject">Geography</span>
+        <span class="grade-value">A</span>
+      </div>
+      <div class="grade-item">
+        <span class="grade-subject">Design &amp; Technology</span>
+        <span class="grade-value">A</span>
+      </div>
+      <div class="grade-item">
+        <span class="grade-subject">Physics</span>
+        <span class="grade-value">B</span>
+      </div>
+    </div>
+    <div class="projected-note">Current projected grades · Based on school report</div>
+  </div>
+
+  <!-- ── WILLIAMS F1 WORK EXPERIENCE ── -->
+  <div class="work-item reveal">
+    <div class="work-date">July 2026</div>
+    <div class="work-card">
+      <div class="work-org">Williams Racing · Formula 1 World Championship</div>
+      <div class="work-title">F1 Factory Work Experience</div>
+      <p class="work-bio">
+        Selected for a five-day work experience programme at Williams Racing's Grove
+        headquarters — one of Formula 1's most storied constructors. An opportunity to
+        immerse in the engineering culture and operational rigour of a live F1 team,
+        observing how cutting-edge technology, data, and precision manufacturing come
+        together at the pinnacle of motorsport.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── UNIVERSITY MILESTONE ── -->
+  <div class="milestone future reveal">
+    <div class="milestone-date">2027 Onwards</div>
+    <div class="milestone-title">University</div>
+    <div class="milestone-school">Mechanical Engineering · Preferred: Russell Group</div>
+    <div class="milestone-summary">
+      Aspiring to read Mechanical Engineering at university, with a long-term goal of
+      working in Formula 1 — in vehicle dynamics, aerodynamics, or systems engineering.
+    </div>
+    <div class="future-note">Aspirational · Applications opening 2026</div>
+  </div>
+
+</div>
