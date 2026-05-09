@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#e2c47a"/>
+      <stop offset="50%"  stop-color="#c9a84c"/>
+      <stop offset="100%" stop-color="#a07830"/>
+    </linearGradient>
+    <!-- carbon fibre pattern -->
+    <pattern id="cf" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="4" fill="#141414"/>
+      <rect width="2" height="2" fill="#1a1a1a"/>
+      <rect x="2" y="2" width="2" height="2" fill="#1a1a1a"/>
+    </pattern>
+  </defs>
+
+  <!-- background -->
+  <rect width="64" height="64" fill="url(#cf)"/>
+
+  <!-- gold border -->
+  <rect x="1.5" y="1.5" width="61" height="61" fill="none" stroke="url(#gold)" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- corner accents -->
+  <path d="M1.5 10 L1.5 1.5 L10 1.5"   fill="none" stroke="url(#gold)" stroke-width="1.5"/>
+  <path d="M54 1.5 L62.5 1.5 L62.5 10" fill="none" stroke="url(#gold)" stroke-width="1.5"/>
+  <path d="M1.5 54 L1.5 62.5 L10 62.5" fill="none" stroke="url(#gold)" stroke-width="1.5"/>
+  <path d="M54 62.5 L62.5 62.5 L62.5 54" fill="none" stroke="url(#gold)" stroke-width="1.5"/>
+
+  <!-- JF text -->
+  <text
+    x="32" y="43"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="28"
+    font-weight="400"
+    text-anchor="middle"
+    letter-spacing="2"
+    fill="url(#gold)"
+  >JF</text>
+</svg>
