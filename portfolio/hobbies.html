@@ -1,0 +1,449 @@
+---
+layout: default
+title: Hobbies
+label: Outside the classroom
+---
+
+<style>
+  /* ============================================================
+     HOBBY SECTION HEADER
+  ============================================================ */
+  .hobby-block {
+    margin-bottom: 64px;
+  }
+
+  .hobby-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .hobby-title-group { flex: 1; }
+
+  .hobby-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .hobby-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .hobby-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 8px;
+  }
+
+  .hobby-badge {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  /* ============================================================
+     BODY TEXT
+  ============================================================ */
+  .hobby-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.85;
+    margin-bottom: 16px;
+  }
+  .hobby-body strong { color: var(--white); font-weight: 400; }
+
+  /* ============================================================
+     STAT BOXES
+  ============================================================ */
+  .stat-row {
+    display: grid;
+    gap: 2px;
+    margin: 24px 0;
+  }
+
+  .stat-row.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .stat-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .stat-box {
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 18px 14px;
+    background: rgba(255,255,255,0.012);
+  }
+
+  .stat-box-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-box-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 6px;
+  }
+
+  /* ============================================================
+     MEDAL DISPLAY
+  ============================================================ */
+  .medal-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin: 24px 0;
+  }
+
+  .medal-card {
+    padding: 20px 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.012);
+    text-align: center;
+  }
+
+  .medal-card.gold   { border-color: rgba(201,168,76,0.35); background: rgba(201,168,76,0.05); }
+  .medal-card.silver { border-color: rgba(192,192,192,0.25); background: rgba(192,192,192,0.03); }
+  .medal-card.bronze { border-color: rgba(176,141,87,0.25); background: rgba(176,141,87,0.03); }
+
+  .medal-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .medal-card.gold   .medal-count { color: var(--gold); }
+  .medal-card.silver .medal-count { color: #c0c0c0; }
+  .medal-card.bronze .medal-count { color: #b08d57; }
+
+  .medal-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 6px;
+  }
+
+  /* ============================================================
+     ACHIEVEMENT BANNER — for the Grand Champion titles
+  ============================================================ */
+  .achievement-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid rgba(201,168,76,0.4);
+    background: rgba(201,168,76,0.07);
+    padding: 18px 22px;
+    margin: 20px 0;
+  }
+
+  .achievement-icon { font-size: 24px; flex-shrink: 0; }
+
+  .achievement-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--gold);
+  }
+
+  .achievement-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 3px;
+  }
+
+  /* ============================================================
+     FEATURE LIST
+  ============================================================ */
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 20px 0;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 13px 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.012);
+  }
+
+  .feature-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 5px;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .feature-text {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.7;
+  }
+
+  .feature-text strong { color: var(--white); font-weight: 400; }
+
+  /* ============================================================
+     TRACK HIGHLIGHT — for Monaco stat
+  ============================================================ */
+  .track-highlight {
+    border: 1px solid rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.05);
+    padding: 18px 22px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .track-highlight-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 0.04em;
+  }
+
+  .track-highlight-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 4px;
+  }
+
+  .track-highlight-stat {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .track-highlight-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .track-highlight-sublabel {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 4px;
+  }
+
+  /* divider between hobby sections */
+  .hobby-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
+    margin: 60px 0;
+  }
+
+  @media (max-width: 540px) {
+    .stat-row.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .stat-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .hobby-badge { display: none; }
+    .track-highlight { flex-direction: column; align-items: flex-start; }
+    .track-highlight-stat { text-align: left; }
+  }
+</style>
+
+<!-- ============================================================
+     MARTIAL ARTS
+============================================================ -->
+<div class="hobby-block reveal">
+
+  <div class="hobby-header">
+    <div class="hobby-title-group">
+      <div class="hobby-label">Martial Arts</div>
+      <div class="hobby-title">Tang Soo Do</div>
+      <div class="hobby-subtitle">2nd Dan Black Belt · Alpha Competition Squad</div>
+    </div>
+    <div class="hobby-badge">武</div>
+  </div>
+
+  <p class="hobby-body">
+    I have trained in <strong>Tang Soo Do</strong> — a Korean martial art emphasising
+    discipline, technique, and controlled power — for a number of years, reaching the
+    rank of <strong>2nd Dan Black Belt</strong>. Alongside training, I compete regularly
+    as a member of my club's <strong>Alpha Competition Squad</strong>, the club's elite
+    competitive group, and have on occasion served as <strong>Squad Captain</strong>.
+  </p>
+
+  <!-- Grand Champion achievements -->
+  <div class="achievement-banner">
+    <div class="achievement-icon">🏆</div>
+    <div>
+      <div class="achievement-title">2× Irish Invitational Grand Champion</div>
+      <div class="achievement-sub">International open competition · Republic of Ireland</div>
+    </div>
+  </div>
+
+  <p class="hobby-body">
+    Competition has taken me across <strong>all four UK nations</strong> as well as
+    internationally to the <strong>Netherlands</strong>, competing against athletes from
+    clubs across Europe. Across my competitive career I have accumulated
+    <strong>42 medals</strong> in total.
+  </p>
+
+  <!-- Medal tally -->
+  <div class="medal-strip">
+    <div class="medal-card gold">
+      <div class="medal-count">12</div>
+      <div class="medal-label">Gold</div>
+    </div>
+    <div class="medal-card silver">
+      <div class="medal-count">8</div>
+      <div class="medal-label">Silver</div>
+    </div>
+    <div class="medal-card bronze">
+      <div class="medal-count">22</div>
+      <div class="medal-label">Bronze</div>
+    </div>
+  </div>
+
+  <!-- Key stats -->
+  <div class="stat-row cols-3">
+    <div class="stat-box">
+      <div class="stat-box-value">42</div>
+      <div class="stat-box-label">Total medals</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-value">2nd</div>
+      <div class="stat-box-label">Dan black belt</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-value">Int'l</div>
+      <div class="stat-box-label">Competition level</div>
+    </div>
+  </div>
+
+  <div class="feature-list">
+    <div class="feature-item">
+      <div class="feature-dot"></div>
+      <div class="feature-text"><strong>Alpha Competition Squad member</strong> — selected for the club's highest competitive group, representing the club at regional, national, and international events.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-dot"></div>
+      <div class="feature-text"><strong>Squad Captain (on occasion)</strong> — leading the team at competitions, managing warm-ups, supporting teammates, and representing the club in official communications with event organisers.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-dot"></div>
+      <div class="feature-text"><strong>Competed across UK and Europe</strong> — England, Scotland, Wales, Northern Ireland, and the Netherlands, gaining experience in a wide range of competitive environments and judging styles.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="hobby-divider"></div>
+
+<!-- ============================================================
+     SIM RACING
+============================================================ -->
+<div class="hobby-block reveal">
+
+  <div class="hobby-header">
+    <div class="hobby-title-group">
+      <div class="hobby-label">Sim Racing</div>
+      <div class="hobby-title">Sim Racing</div>
+      <div class="hobby-subtitle">Fanatec Setup · F1 25 · Assetto Corsa</div>
+    </div>
+    <div class="hobby-badge">⏱</div>
+  </div>
+
+  <p class="hobby-body">
+    Away from engineering and martial arts, I race on a <strong>Fanatec sim racing setup</strong>
+    — wheel, pedals, and rig — primarily in <strong>F1 25</strong> and occasionally
+    <strong>Assetto Corsa</strong>. I compete in <strong>two online leagues</strong>,
+    where the racing is close, competitive, and a good outlet for the same analytical
+    thinking that goes into engineering problems.
+  </p>
+
+  <!-- Monaco highlight -->
+  <div class="track-highlight">
+    <div>
+      <div class="track-highlight-name">Circuit de Monaco</div>
+      <div class="track-highlight-label">Best performing circuit · F1 25</div>
+    </div>
+    <div class="track-highlight-stat">
+      <div class="track-highlight-value">Top 2%</div>
+      <div class="track-highlight-sublabel">Worldwide ranking</div>
+    </div>
+  </div>
+
+  <p class="hobby-body">
+    Consistently placing in the <strong>top 20% worldwide</strong> across every circuit
+    in F1 25, with Monaco as my standout track at <strong>top 2% globally</strong>.
+    Monaco rewards precision and patience over raw speed — a circuit where mechanical
+    sympathy and spatial awareness matter as much as reaction time.
+  </p>
+
+  <div class="stat-row cols-3">
+    <div class="stat-box">
+      <div class="stat-box-value">Top 2%</div>
+      <div class="stat-box-label">Monaco · F1 25</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-value">Top 20%</div>
+      <div class="stat-box-label">All circuits</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-value">2</div>
+      <div class="stat-box-label">Online leagues</div>
+    </div>
+  </div>
+
+  <div class="feature-list">
+    <div class="feature-item">
+      <div class="feature-dot"></div>
+      <div class="feature-text"><strong>Fanatec hardware</strong> — direct drive wheel, load cell pedals, and a dedicated racing rig. Proper force feedback makes a meaningful difference to how you feel and respond to the car.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-dot"></div>
+      <div class="feature-text"><strong>Online league racing</strong> — two active leagues with structured race calendars, qualifying sessions, and championship points. Approximately 50 points accumulated across both.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-dot"></div>
+      <div class="feature-text"><strong>Assetto Corsa</strong> — used for more technical, physics-focused driving, particularly for practicing car control and understanding how setup changes affect handling behaviour.</div>
+    </div>
+  </div>
+
+</div>
