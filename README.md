@@ -6,19 +6,19 @@ layout: none
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- 
+
   <!-- ============================================================
        PAGE TITLE — appears in browser tab
   ============================================================ -->
   <title>Jack Foster</title>
- 
+
   <!-- Google Fonts — Cormorant Garamond (display), Barlow (body), Barlow Condensed (labels) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Barlow:wght@200;300;400;500&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet" />
- 
+
   <style>
- 
+
     /* ============================================================
        COLOUR VARIABLES — change these to retheme the whole site
     ============================================================ */
@@ -30,10 +30,10 @@ layout: none
       --white-soft:  rgba(245,245,240,0.7);  /* body text */
       --white-muted: rgba(245,245,240,0.35); /* labels, hints */
     }
- 
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
- 
+
     /* ============================================================
        BACKGROUND — carbon fibre weave effect
        Built from four layered CSS gradients, no image needed
@@ -74,7 +74,7 @@ layout: none
       background-size: 4px 4px, 4px 4px, 8px 8px, 8px 8px;
       overflow-x: hidden;
     }
- 
+
     /* dark radial vignette over the background */
     body::after {
       content: '';
@@ -84,10 +84,10 @@ layout: none
       pointer-events: none;
       z-index: 0;
     }
- 
+
     /* everything sits above the vignette layer */
     body > * { position: relative; z-index: 1; }
- 
+
     /* ============================================================
        TOP GOLD RULE — the thin shimmering line at very top of page
     ============================================================ */
@@ -97,7 +97,7 @@ layout: none
       background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold-light) 50%, var(--gold) 70%, transparent);
       animation: fadeIn 1.4s ease both;
     }
- 
+
     /* ============================================================
        HERO SECTION — full-viewport intro (photo, name, school, email)
     ============================================================ */
@@ -110,14 +110,14 @@ layout: none
       text-align: center;
       padding: 100px 24px 80px;
     }
- 
+
     /* ── PROFILE PHOTO ──────────────────────────────────────────
        To add your photo:
          1. Add your image file (e.g. photo.jpg) to your GitHub repo
             in the same folder as this index.html
          2. Delete the <div class="avatar-placeholder">JF</div> line
          3. Uncomment the <img> line below and update the src path
- 
+
        The ring animates — it's a conic gradient that slowly rotates.
     ─────────────────────────────────────────────────────────── */
     .avatar-wrap {
@@ -127,7 +127,7 @@ layout: none
       margin-bottom: 36px;
       animation: fadeUp 0.9s 0.2s ease both;
     }
- 
+
     /* spinning gold arc around the photo */
     .avatar-ring {
       position: absolute;
@@ -142,7 +142,7 @@ layout: none
       );
       animation: spin 9s linear infinite;
     }
- 
+
     /* static faint border behind the spinning ring */
     .avatar-ring-bg {
       position: absolute;
@@ -150,7 +150,7 @@ layout: none
       border-radius: 50%;
       border: 1px solid rgba(201,168,76,0.2);
     }
- 
+
     /* the circular photo container itself */
     .avatar {
       position: relative;
@@ -161,9 +161,9 @@ layout: none
       background: #1c1c1c;
       z-index: 1;
     }
- 
+
     .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
- 
+
     /* placeholder initials — shown when no photo is set */
     .avatar-placeholder {
       width: 100%;
@@ -176,7 +176,7 @@ layout: none
       font-weight: 300;
       color: var(--gold);
     }
- 
+
     /* ── NAME ── */
     /* Change the text inside the <h1> in the HTML below */
     .hero-name {
@@ -189,10 +189,10 @@ layout: none
       color: var(--white);
       animation: fadeUp 0.9s 0.36s ease both;
     }
- 
+
     /* the <em> tag makes "Foster" appear in gold */
     .hero-name em { font-style: normal; color: var(--gold); }
- 
+
     /* ── SCHOOL / SUBTITLE LINE ── */
     /* Edit in the HTML — look for class="hero-school" */
     .hero-school {
@@ -205,7 +205,7 @@ layout: none
       color: var(--white-muted);
       animation: fadeUp 0.9s 0.5s ease both;
     }
- 
+
     /* ── EMAIL LINK ── */
     /* Update href="mailto:..." and the visible text in the HTML */
     .hero-email {
@@ -221,7 +221,7 @@ layout: none
       display: inline-block;
     }
     .hero-email:hover { color: var(--gold-light); }
- 
+
     /* ── SCROLL INDICATOR ── */
     /* The animated line + "Scroll" text — fades in last */
     .scroll-hint {
@@ -245,7 +245,7 @@ layout: none
       background: linear-gradient(to bottom, var(--gold), transparent);
       animation: scrollPulse 2.2s ease-in-out infinite;
     }
- 
+
     /* ============================================================
        BIO SECTION — short paragraph about you
        Edit the text inside <p class="bio-text"> in the HTML below
@@ -255,7 +255,7 @@ layout: none
       margin: 0 auto;
       padding: 90px 32px 70px;
     }
- 
+
     /* decorative gold rule above the bio */
     .section-rule {
       width: 36px;
@@ -263,7 +263,7 @@ layout: none
       background: var(--gold);
       margin-bottom: 30px;
     }
- 
+
     .bio-text {
       font-size: 16px;
       font-weight: 300;
@@ -272,7 +272,7 @@ layout: none
     }
     /* wrap words in <strong> to make them stand out in white */
     .bio-text strong { color: var(--white); font-weight: 400; }
- 
+
     /* ============================================================
        NAV BOXES — the large clickable rectangles
        Each box links to another page.
@@ -288,7 +288,7 @@ layout: none
       flex-direction: column;
       gap: 14px;
     }
- 
+
     .nav-box {
       display: block;
       text-decoration: none;
@@ -298,7 +298,7 @@ layout: none
       overflow: hidden;
       transition: border-color 0.3s, background 0.3s;
     }
- 
+
     /* subtle gold wash that appears on hover */
     .nav-box::before {
       content: '';
@@ -310,7 +310,7 @@ layout: none
     }
     .nav-box:hover { border-color: rgba(201,168,76,0.85); }
     .nav-box:hover::before { opacity: 1; }
- 
+
     /* animated corner brackets that grow on hover */
     .nav-box .corner-tl,
     .nav-box .corner-br {
@@ -331,7 +331,7 @@ layout: none
     }
     .nav-box:hover .corner-tl,
     .nav-box:hover .corner-br { opacity: 1; width: 22px; height: 22px; }
- 
+
     .nav-box-inner {
       position: relative;
       z-index: 1;
@@ -339,7 +339,7 @@ layout: none
       align-items: center;
       justify-content: space-between;
     }
- 
+
     /* small uppercase label above the title */
     .nav-box-label {
       font-family: 'Barlow Condensed', sans-serif;
@@ -350,7 +350,7 @@ layout: none
       color: var(--gold);
       margin-bottom: 8px;
     }
- 
+
     /* large title text */
     .nav-box-title {
       font-family: 'Cormorant Garamond', serif;
@@ -359,7 +359,7 @@ layout: none
       letter-spacing: 0.05em;
       color: var(--white);
     }
- 
+
     /* small description below the title */
     .nav-box-desc {
       margin-top: 6px;
@@ -368,7 +368,7 @@ layout: none
       color: var(--white-muted);
       letter-spacing: 0.03em;
     }
- 
+
     /* arrow that slides right on hover */
     .nav-box-arrow {
       font-size: 26px;
@@ -379,7 +379,7 @@ layout: none
       margin-left: 28px;
     }
     .nav-box:hover .nav-box-arrow { opacity: 1; transform: translateX(7px); }
- 
+
     /* ============================================================
        FOOTER — bottom strip
        Edit the text in the <footer> tag in the HTML below
@@ -403,7 +403,7 @@ layout: none
       background: var(--gold);
       opacity: 0.35;
     }
- 
+
     /* ============================================================
        ANIMATIONS
     ============================================================ */
@@ -421,7 +421,7 @@ layout: none
       0%, 100% { opacity: 0.35; transform: scaleY(1); }
       50%       { opacity: 1;    transform: scaleY(1.12); }
     }
- 
+
     /* scroll-triggered reveal — elements fade up as you scroll to them */
     .reveal {
       opacity: 0;
@@ -429,7 +429,7 @@ layout: none
       transition: opacity 0.75s ease, transform 0.75s ease;
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
- 
+
     /* ============================================================
        RESPONSIVE — adjustments for small screens
     ============================================================ */
@@ -439,19 +439,19 @@ layout: none
       .nav-box-title { font-size: 30px; }
       footer { flex-direction: column; gap: 10px; }
     }
- 
+
   </style>
 </head>
 <body>
- 
+
   <!-- TOP GOLD LINE -->
   <div class="top-rule"></div>
- 
+
   <!-- ============================================================
        HERO — edit your name, school, and email here
   ============================================================ -->
   <div class="hero">
- 
+
     <!-- PROFILE PHOTO
          Currently shows "JF" initials as a placeholder.
          To use a real photo:
@@ -467,24 +467,24 @@ layout: none
         <!-- <img src="photo.jpg" alt="Jack Foster"> -->
       </div>
     </div>
- 
+
     <!-- NAME — "Foster" is wrapped in <em> to make it gold -->
     <h1 class="hero-name">Jack <em>Foster</em></h1>
- 
+
     <!-- SCHOOL LINE — edit the text between the tags -->
     <p class="hero-school">Sixth Form &nbsp;·&nbsp; King Edward VI Grammar School &nbsp;·&nbsp; A-Levels</p>
- 
+
     <!-- EMAIL — update both the href and the visible text -->
     <a href="mailto:jrfoster2009@hotmail.com" class="hero-email">jrfoster2009@hotmail.com</a>
- 
+
     <!-- SCROLL INDICATOR — purely decorative, no need to edit -->
     <div class="scroll-hint">
       <span>Scroll</span>
       <div class="scroll-line"></div>
     </div>
- 
+
   </div>
- 
+
   <!-- ============================================================
        BIO — edit the paragraph text here
        Wrap key words in <strong> to highlight them in white
@@ -498,7 +498,7 @@ layout: none
       figuring out how stuff works. This site is where I document it all.
     </p>
   </div>
- 
+
   <!-- ============================================================
        NAV BOXES — one block per destination page
        Order: Links → Experience → Projects → Hobbies
@@ -506,7 +506,7 @@ layout: none
        To add a box: copy the whole <a class="nav-box"> block and paste below
   ============================================================ -->
   <div class="nav-boxes">
- 
+
     <!-- LINKS -->
     <a href="links.html" class="nav-box reveal">
       <div class="corner-tl"></div>
@@ -520,7 +520,7 @@ layout: none
         <div class="nav-box-arrow">→</div>
       </div>
     </a>
- 
+
     <!-- EXPERIENCE -->
     <a href="experience.html" class="nav-box reveal">
       <div class="corner-tl"></div>
@@ -534,7 +534,7 @@ layout: none
         <div class="nav-box-arrow">→</div>
       </div>
     </a>
- 
+
     <!-- PROJECTS -->
     <a href="projects.html" class="nav-box reveal">
       <div class="corner-tl"></div>
@@ -548,7 +548,7 @@ layout: none
         <div class="nav-box-arrow">→</div>
       </div>
     </a>
- 
+
     <!-- HOBBIES -->
     <a href="hobbies.html" class="nav-box reveal">
       <div class="corner-tl"></div>
@@ -562,9 +562,9 @@ layout: none
         <div class="nav-box-arrow">→</div>
       </div>
     </a>
- 
+
   </div>
- 
+
   <!-- ============================================================
        FOOTER — edit the left and right text if you want
   ============================================================ -->
@@ -573,7 +573,7 @@ layout: none
     <div class="footer-line"></div>
     <p>Built from scratch</p>
   </footer>
- 
+
   <!-- scroll reveal script — no need to edit -->
   <script>
     const reveals = document.querySelectorAll('.reveal');
@@ -587,7 +587,6 @@ layout: none
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
   </script>
- 
+
 </body>
 </html>
- 
