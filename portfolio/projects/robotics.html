@@ -1,0 +1,233 @@
+---
+layout: default
+title: Student Robotics 2026
+label: Competition · Robotics
+---
+
+<style>
+  .project-hero-image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+    margin-bottom: 36px;
+    filter: brightness(0.9);
+  }
+
+  .project-tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .project-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.28);
+    padding: 5px 12px;
+    color: var(--gold);
+  }
+
+  .project-tag.white {
+    color: var(--white-muted);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .award-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid rgba(201,168,76,0.35);
+    background: rgba(201,168,76,0.06);
+    padding: 16px 20px;
+    margin-bottom: 32px;
+  }
+
+  .award-banner-icon { font-size: 22px; }
+
+  .award-banner-text { }
+
+  .award-banner-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--gold);
+  }
+
+  .award-banner-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 2px;
+  }
+
+  .project-section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    margin-top: 36px;
+  }
+
+  .project-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.85;
+    margin-bottom: 16px;
+  }
+
+  .project-body strong { color: var(--white); font-weight: 400; }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin: 28px 0;
+  }
+
+  .stat-box {
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 18px 16px;
+    background: rgba(255,255,255,0.012);
+  }
+
+  .stat-box-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-box-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 6px;
+  }
+
+  .role-card {
+    border-left: 2px solid var(--gold);
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.015);
+    margin: 20px 0;
+  }
+
+  .role-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .role-card-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.75;
+  }
+
+  @media (max-width: 540px) {
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .project-hero-image { height: 220px; }
+  }
+</style>
+
+<!-- Hero image — stored in /assets/images/robotics.jpg -->
+<img src="/assets/images/robotics.jpg" alt="Student Robotics 2026 — King Edward VI Grammar School" class="project-hero-image">
+
+<!-- Tags -->
+<div class="project-tag-row">
+  <span class="project-tag">Student Robotics 2026</span>
+  <span class="project-tag white">University of Southampton</span>
+  <span class="project-tag white">Autonomous Robotics</span>
+  <span class="project-tag white">Complete</span>
+</div>
+
+<!-- Award -->
+<div class="award-banner">
+  <div class="award-banner-icon">🏆</div>
+  <div class="award-banner-text">
+    <div class="award-banner-title">Robot &amp; Team Image Award</div>
+    <div class="award-banner-sub">Student Robotics 2026 · King Edward VI Grammar School</div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stat-row">
+  <div class="stat-box">
+    <div class="stat-box-value">4th</div>
+    <div class="stat-box-label">Final placement</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-box-value">20+</div>
+    <div class="stat-box-label">Teams competing</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-box-value">2026</div>
+    <div class="stat-box-label">Competition year</div>
+  </div>
+</div>
+
+<!-- Overview -->
+<div class="project-section-label">// Overview</div>
+<p class="project-body">
+  Student Robotics is a UK-wide competition challenging sixth form teams to design, build,
+  and program a fully <strong>autonomous robot</strong> from scratch — no remote control,
+  no human input during a match. The 2026 competition was held at the
+  <strong>University of Southampton</strong> and themed around chemistry, with robots
+  tasked with collecting coloured boxes representing acids (red) and bases (blue).
+</p>
+<p class="project-body">
+  The scoring system rewarded teams for moving their pH level as far from neutral (pH 7)
+  as possible — collecting an acid and a base would cancel each other out, adding a layer
+  of strategic decision-making to the challenge. Our robot competed against over 20 teams,
+  finishing <strong>4th overall</strong> and winning the <strong>Robot &amp; Team Image Award</strong>.
+</p>
+
+<!-- My Role -->
+<div class="project-section-label">// My Role</div>
+<div class="role-card">
+  <div class="role-card-title">Head Chassis Engineer</div>
+  <div class="role-card-desc">
+    Responsible for the physical design and manufacture of the robot's chassis — the structural
+    backbone that everything else mounts to. Led all fabrication work, drawing on my Design &amp;
+    Technology background to produce a chassis that was both competition-legal and mechanically
+    robust under match conditions.
+  </div>
+</div>
+<p class="project-body">
+  Alongside chassis design, I was responsible for <strong>hardware integration</strong> —
+  ensuring all electronic components, motors, sensors, and wiring were mounted and routed
+  correctly within the strict rules set out by Student Robotics. This meant cross-referencing
+  the competition rulebook throughout the build process to confirm full compliance before
+  every match.
+</p>
+
+<!-- The Challenge -->
+<div class="project-section-label">// The Challenge</div>
+<p class="project-body">
+  Building a robot that operates entirely autonomously presents a different set of engineering
+  problems compared to a manually controlled machine. Every physical decision — wheel placement,
+  centre of gravity, arm geometry — directly affects the robot's ability to sense its environment
+  and execute its software. Working closely with our programming team, I adapted the chassis
+  design iteratively to support the sensors and mechanisms they needed to implement our strategy.
+</p>
+<p class="project-body">
+  The competition environment itself is unpredictable: lighting varies, other robots interact
+  with yours, and minor manufacturing tolerances compound over the course of a match. Designing
+  for robustness under those conditions was one of the most valuable engineering lessons the
+  project taught me.
+</p>
