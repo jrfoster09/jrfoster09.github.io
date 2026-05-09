@@ -1,0 +1,266 @@
+---
+layout: default
+title: Projects
+label: What I've been building
+---
+
+<style>
+  .projects-intro {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-muted);
+    line-height: 1.8;
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .project-card.featured {
+    grid-column: 1 / -1;
+  }
+
+  .project-card {
+    display: block;
+    text-decoration: none;
+    border: 1px solid rgba(201,168,76,0.22);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    background: rgba(255,255,255,0.012);
+  }
+
+  .project-card:hover { border-color: rgba(201,168,76,0.75); }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold-dim);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 0;
+  }
+  .project-card:hover::before { opacity: 1; }
+
+  .project-card .corner-tl,
+  .project-card .corner-br {
+    position: absolute;
+    width: 12px; height: 12px;
+    opacity: 0;
+    transition: opacity 0.3s, width 0.3s, height 0.3s;
+    z-index: 2;
+  }
+  .project-card .corner-tl {
+    top: 0; left: 0;
+    border-top: 1px solid var(--gold);
+    border-left: 1px solid var(--gold);
+  }
+  .project-card .corner-br {
+    bottom: 0; right: 0;
+    border-bottom: 1px solid var(--gold);
+    border-right: 1px solid var(--gold);
+  }
+  .project-card:hover .corner-tl,
+  .project-card:hover .corner-br { opacity: 1; width: 20px; height: 20px; }
+
+  /* ── IMAGE ──
+     To swap placeholder for real image, replace .card-image-placeholder
+     with: <img src="/assets/images/name.jpg" alt="..." class="card-image">
+  */
+  .card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85);
+    transition: filter 0.3s;
+  }
+  .project-card:hover .card-image { filter: brightness(1); }
+
+  .featured .card-image { height: 260px; }
+
+  .card-image-placeholder {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #1a1a1a, #222);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .featured .card-image-placeholder { height: 220px; }
+
+  .card-image-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px,
+      transparent 1px, transparent 12px
+    );
+  }
+
+  .card-image-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.3);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── CARD BODY ── */
+  .card-body {
+    padding: 20px 22px 22px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .card-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .card-status {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 3px 8px;
+  }
+
+  .card-status.complete { color: rgba(201,168,76,0.6); border-color: rgba(201,168,76,0.2); }
+  .card-status.ongoing  { color: rgba(100,200,100,0.7); border-color: rgba(100,200,100,0.2); }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--white-muted);
+    line-height: 1.7;
+  }
+
+  .card-arrow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .project-card:hover .card-arrow { opacity: 1; }
+
+  /* award badge */
+  .award-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 4px 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  @media (max-width: 540px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: 1; }
+  }
+</style>
+
+<p class="projects-intro">A growing collection of engineering and design work — from GCSE making projects to competitive robotics. Click any card for the full write-up.</p>
+
+<div class="projects-grid">
+
+  <!-- ── ROBOTICS — featured, full width ── -->
+  <a href="/portfolio/projects/robotics.html" class="project-card featured reveal">
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+    <!-- Image: upload robotics.jpg to /assets/images/ in your repo -->
+    <img src="/assets/images/robotics.jpg" alt="Student Robotics 2026" class="card-image">
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="card-tag">Robotics · Competition</span>
+        <span class="card-status complete">Complete</span>
+      </div>
+      <div class="card-title">Student Robotics 2026</div>
+      <p class="card-desc">Autonomous robot built for the Student Robotics 2026 competition at the University of Southampton. pH-themed challenge involving coloured box collection and strategic scoring. Finished 4th from over 20 teams.</p>
+      <div class="award-badge">🏆 Robot &amp; Team Image Award</div>
+      <div class="card-arrow">View project →</div>
+    </div>
+  </a>
+
+  <!-- ── GCSE DT ── -->
+  <a href="/portfolio/projects/gcse-dt.html" class="project-card reveal">
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+    <!-- Image: upload gscedt.jpg to /assets/images/ in your repo -->
+    <img src="/assets/images/gscedt.jpg" alt="GCSE DT Dinosaur Toy" class="card-image">
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="card-tag">DT · GCSE</span>
+        <span class="card-status complete">Complete</span>
+      </div>
+      <div class="card-title">Modular Dinosaur Pull-Along Toy</div>
+      <p class="card-desc">Handcrafted wooden pull-along toy with interchangeable head and tail pieces, allowing children to create different dinosaur species or entirely custom creatures.</p>
+      <div class="card-arrow">View project →</div>
+    </div>
+  </a>
+
+  <!-- ── A-LEVEL DT ── -->
+  <a href="/portfolio/projects/alevel-dt.html" class="project-card reveal">
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+    <div class="card-image-placeholder">
+      <span class="card-image-label">Image coming soon</span>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="card-tag">DT · A-Level NEA</span>
+        <span class="card-status ongoing">In Progress</span>
+      </div>
+      <div class="card-title">Adjustable School Lectern</div>
+      <p class="card-desc">Designing and manufacturing a height-adjustable lectern for King Edward VI Grammar School, accommodating users from Year 7 students to full-height adults, with accessibility provisions for disabled users.</p>
+      <div class="card-arrow">View project →</div>
+    </div>
+  </a>
+
+</div>
