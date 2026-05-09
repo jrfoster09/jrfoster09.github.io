@@ -1,0 +1,204 @@
+---
+layout: default
+title: Modular Dinosaur Pull-Along Toy
+label: GCSE Design & Technology
+---
+
+<style>
+  .project-hero-image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    object-position: center 60%;
+    display: block;
+    margin-bottom: 36px;
+    filter: brightness(0.9);
+  }
+
+  .project-tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .project-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.28);
+    padding: 5px 12px;
+    color: var(--gold);
+  }
+
+  .project-tag.white {
+    color: var(--white-muted);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .project-section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    margin-top: 36px;
+  }
+
+  .project-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.85;
+    margin-bottom: 16px;
+  }
+
+  .project-body strong { color: var(--white); font-weight: 400; }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin: 28px 0;
+  }
+
+  .stat-box {
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 18px 16px;
+    background: rgba(255,255,255,0.012);
+  }
+
+  .stat-box-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-box-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 6px;
+  }
+
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 20px 0;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.012);
+  }
+
+  .feature-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 5px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .feature-text {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.7;
+  }
+
+  .feature-text strong { color: var(--white); font-weight: 400; }
+
+  @media (max-width: 540px) {
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .project-hero-image { height: 220px; }
+  }
+</style>
+
+<img src="/assets/images/gscedt.jpg" alt="Modular Dinosaur Pull-Along Toy" class="project-hero-image">
+
+<div class="project-tag-row">
+  <span class="project-tag">GCSE Design &amp; Technology</span>
+  <span class="project-tag white">Woodwork</span>
+  <span class="project-tag white">3D Printing</span>
+  <span class="project-tag white">Complete</span>
+</div>
+
+<div class="stat-row">
+  <div class="stat-box">
+    <div class="stat-box-value">Wood</div>
+    <div class="stat-box-label">Primary material</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-box-value">3D</div>
+    <div class="stat-box-label">Printed handle</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-box-value">GCSE</div>
+    <div class="stat-box-label">NEA project</div>
+  </div>
+</div>
+
+<div class="project-section-label">// Overview</div>
+<p class="project-body">
+  Designed and manufactured for my GCSE Design &amp; Technology Non-Examined Assessment,
+  this project centred on creating a <strong>pull-along toy for young children</strong>
+  that went beyond a conventional single-form product. The brief challenged me to produce
+  something that was both engaging and considered in its design — and I wanted to address
+  the issue of toy longevity through a modular approach.
+</p>
+
+<div class="project-section-label">// Design Concept</div>
+<p class="project-body">
+  The core idea was <strong>reusability through modularity</strong>. Rather than producing
+  a single fixed dinosaur, the toy features interchangeable head and tail pieces that clip
+  onto the main body — allowing a child to reconfigure the toy into different dinosaur species,
+  or mix and match parts to invent entirely new creatures. This extends the life of the product
+  and encourages imaginative play rather than passive interaction.
+</p>
+
+<div class="feature-list">
+  <div class="feature-item">
+    <div class="feature-dot"></div>
+    <div class="feature-text"><strong>Interchangeable head and tail pieces</strong> — jointed connection system allows parts to be swapped without tools, designed to be robust enough for small children to operate independently.</div>
+  </div>
+  <div class="feature-item">
+    <div class="feature-dot"></div>
+    <div class="feature-text"><strong>Solid beech wood body and wheels</strong> — selected for its durability, smooth grain, and child-safe finish properties. All edges were shaped and sanded to remove any sharp profiles.</div>
+  </div>
+  <div class="feature-item">
+    <div class="feature-dot"></div>
+    <div class="feature-text"><strong>3D printed pull handle</strong> — the arched handle was designed in CAD and printed in PLA, allowing a complex curved form that would have been impractical to achieve in wood alone.</div>
+  </div>
+  <div class="feature-item">
+    <div class="feature-dot"></div>
+    <div class="feature-text"><strong>Target user: toddlers and young children</strong> — proportions, weight, and surface finish were all considered against the needs and safety requirements of the intended age group.</div>
+  </div>
+</div>
+
+<div class="project-section-label">// Manufacture</div>
+<p class="project-body">
+  The body, wheels, and interchangeable pieces were all hand-cut, shaped, and finished in
+  the school workshop. The process involved marking out from technical drawings, cutting on
+  the bandsaw, shaping with chisels and rasps, and finishing through progressive sanding grades.
+  The pull handle was modelled in CAD software and 3D printed separately before being fitted
+  to the body.
+</p>
+<p class="project-body">
+  Producing accurate joints for the interchangeable pieces required careful measurement and
+  iteration — early prototypes of the connection mechanism were too loose or too tight,
+  and refining the tolerance to a point where a child could operate it easily without the
+  pieces falling off unexpectedly was one of the more demanding aspects of the build.
+</p>
