@@ -1,16 +1,39 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- PAGE TITLE — set per-page using: title: Your Title in the front matter -->
-
   <title>{{ page.title }} · Jack Foster</title>
 
-  <!-- Google Fonts -->
+  <!-- ============================================================
+       OPEN GRAPH — controls how this page looks when shared on
+       LinkedIn, iMessage, Twitter/X, WhatsApp etc.
+       The page.description is set in each page's front matter.
+       If not set, falls back to the default description below.
+  ============================================================ -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Jack Foster" />
+  <meta property="og:title"       content="{{ page.title }} · Jack Foster" />
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}Sixth form engineering student working towards a career in Formula 1. Portfolio of projects, experience and achievements.{% endif %}" />
+  <meta property="og:url"         content="https://jrfoster09.github.io{{ page.url }}" />
+  <meta property="og:image"       content="https://jrfoster09.github.io/pfp.jpg" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale"      content="en_GB" />
 
+  <!-- Twitter/X card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="{{ page.title }} · Jack Foster" />
+  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}Sixth form engineering student working towards a career in Formula 1. Portfolio of projects, experience and achievements.{% endif %}" />
+  <meta name="twitter:image"       content="https://jrfoster09.github.io/pfp.jpg" />
+
+  <!-- General meta -->
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}Sixth form engineering student working towards a career in Formula 1. Portfolio of projects, experience and achievements.{% endif %}" />
+  <meta name="author" content="Jack Foster" />
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Barlow:wght@200;300;400;500&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -286,22 +309,18 @@
     .link-card:hover .link-card-arrow { opacity: 1; transform: translateX(5px); }
 
   </style>
-
 </head>
 <body>
 
   <!-- TOP GOLD LINE -->
-
   <div class="top-rule"></div>
 
   <!-- BACK TO HOME -->
-
   <nav class="back-nav">
     <a href="/" class="back-link">Home</a>
   </nav>
 
   <!-- PAGE HEADER — populated from front matter -->
-
   <header class="page-header">
     <div class="page-header-label">{{ page.label }}</div>
     <h1 class="page-header-title">{{ page.title }}</h1>
@@ -309,13 +328,11 @@
   </header>
 
   <!-- PAGE CONTENT — each sub-page's HTML goes here -->
-
   <main class="page-content">
     {{ content }}
   </main>
 
   <!-- FOOTER -->
-
   <footer>
     <p>Jack Foster</p>
     <div class="footer-line"></div>
@@ -323,7 +340,6 @@
   </footer>
 
   <!-- scroll reveal -->
-
   <script>
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
