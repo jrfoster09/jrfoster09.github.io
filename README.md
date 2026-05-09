@@ -1,26 +1,43 @@
+---
+layout: none
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+  <!-- ============================================================
+       PAGE TITLE — appears in browser tab
+  ============================================================ -->
   <title>Jack Foster</title>
+ 
+  <!-- Google Fonts — Cormorant Garamond (display), Barlow (body), Barlow Condensed (labels) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Barlow:wght@200;300;400;500&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
+ 
   <style>
+ 
+    /* ============================================================
+       COLOUR VARIABLES — change these to retheme the whole site
+    ============================================================ */
     :root {
-      --gold:        #c9a84c;
-      --gold-light:  #e2c47a;
-      --gold-dim:    rgba(201,168,76,0.12);
-      --white:       #f5f5f0;
-      --white-soft:  rgba(245,245,240,0.7);
-      --white-muted: rgba(245,245,240,0.35);
+      --gold:        #c9a84c;   /* main accent gold */
+      --gold-light:  #e2c47a;   /* lighter gold for shimmer/hover */
+      --gold-dim:    rgba(201,168,76,0.12); /* subtle gold fill */
+      --white:       #f5f5f0;   /* main text colour */
+      --white-soft:  rgba(245,245,240,0.7);  /* body text */
+      --white-muted: rgba(245,245,240,0.35); /* labels, hints */
     }
-
+ 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
+ 
+    /* ============================================================
+       BACKGROUND — carbon fibre weave effect
+       Built from four layered CSS gradients, no image needed
+    ============================================================ */
     body {
       min-height: 100vh;
       font-family: 'Barlow', sans-serif;
@@ -28,23 +45,27 @@
       color: var(--white);
       background-color: #141414;
       background-image:
+        /* grid highlight — vertical lines */
         repeating-linear-gradient(
           90deg,
           transparent, transparent 3px,
           rgba(255,255,255,0.018) 3px,
           rgba(255,255,255,0.018) 4px
         ),
+        /* grid highlight — horizontal lines */
         repeating-linear-gradient(
           0deg,
           transparent, transparent 3px,
           rgba(255,255,255,0.018) 3px,
           rgba(255,255,255,0.018) 4px
         ),
+        /* fibre weave — diagonal A (45°) */
         repeating-linear-gradient(
           45deg,
           rgba(0,0,0,0.35) 0px,   rgba(0,0,0,0.35) 2px,
           rgba(30,30,30,0.6) 2px, rgba(30,30,30,0.6) 4px
         ),
+        /* fibre weave — diagonal B (135°) */
         repeating-linear-gradient(
           135deg,
           rgba(0,0,0,0.35) 0px,   rgba(0,0,0,0.35) 2px,
@@ -53,7 +74,8 @@
       background-size: 4px 4px, 4px 4px, 8px 8px, 8px 8px;
       overflow-x: hidden;
     }
-
+ 
+    /* dark radial vignette over the background */
     body::after {
       content: '';
       position: fixed;
@@ -62,18 +84,23 @@
       pointer-events: none;
       z-index: 0;
     }
-
+ 
+    /* everything sits above the vignette layer */
     body > * { position: relative; z-index: 1; }
-
-    /* ── TOP GOLD RULE ── */
+ 
+    /* ============================================================
+       TOP GOLD RULE — the thin shimmering line at very top of page
+    ============================================================ */
     .top-rule {
       width: 100%;
       height: 2px;
       background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold-light) 50%, var(--gold) 70%, transparent);
       animation: fadeIn 1.4s ease both;
     }
-
-    /* ── HERO ── */
+ 
+    /* ============================================================
+       HERO SECTION — full-viewport intro (photo, name, school, email)
+    ============================================================ */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -83,7 +110,16 @@
       text-align: center;
       padding: 100px 24px 80px;
     }
-
+ 
+    /* ── PROFILE PHOTO ──────────────────────────────────────────
+       To add your photo:
+         1. Add your image file (e.g. photo.jpg) to your GitHub repo
+            in the same folder as this index.html
+         2. Delete the <div class="avatar-placeholder">JF</div> line
+         3. Uncomment the <img> line below and update the src path
+ 
+       The ring animates — it's a conic gradient that slowly rotates.
+    ─────────────────────────────────────────────────────────── */
     .avatar-wrap {
       position: relative;
       width: 164px;
@@ -91,7 +127,8 @@
       margin-bottom: 36px;
       animation: fadeUp 0.9s 0.2s ease both;
     }
-
+ 
+    /* spinning gold arc around the photo */
     .avatar-ring {
       position: absolute;
       inset: -5px;
@@ -105,14 +142,16 @@
       );
       animation: spin 9s linear infinite;
     }
-
+ 
+    /* static faint border behind the spinning ring */
     .avatar-ring-bg {
       position: absolute;
       inset: -3px;
       border-radius: 50%;
       border: 1px solid rgba(201,168,76,0.2);
     }
-
+ 
+    /* the circular photo container itself */
     .avatar {
       position: relative;
       width: 164px;
@@ -122,9 +161,10 @@
       background: #1c1c1c;
       z-index: 1;
     }
-
+ 
     .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
+ 
+    /* placeholder initials — shown when no photo is set */
     .avatar-placeholder {
       width: 100%;
       height: 100%;
@@ -136,7 +176,9 @@
       font-weight: 300;
       color: var(--gold);
     }
-
+ 
+    /* ── NAME ── */
+    /* Change the text inside the <h1> in the HTML below */
     .hero-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(56px, 11vw, 104px);
@@ -147,12 +189,12 @@
       color: var(--white);
       animation: fadeUp 0.9s 0.36s ease both;
     }
-
-    .hero-name em {
-      font-style: normal;
-      color: var(--gold);
-    }
-
+ 
+    /* the <em> tag makes "Foster" appear in gold */
+    .hero-name em { font-style: normal; color: var(--gold); }
+ 
+    /* ── SCHOOL / SUBTITLE LINE ── */
+    /* Edit in the HTML — look for class="hero-school" */
     .hero-school {
       margin-top: 16px;
       font-family: 'Barlow Condensed', sans-serif;
@@ -163,7 +205,9 @@
       color: var(--white-muted);
       animation: fadeUp 0.9s 0.5s ease both;
     }
-
+ 
+    /* ── EMAIL LINK ── */
+    /* Update href="mailto:..." and the visible text in the HTML */
     .hero-email {
       margin-top: 10px;
       font-family: 'Barlow', sans-serif;
@@ -177,7 +221,9 @@
       display: inline-block;
     }
     .hero-email:hover { color: var(--gold-light); }
-
+ 
+    /* ── SCROLL INDICATOR ── */
+    /* The animated line + "Scroll" text — fades in last */
     .scroll-hint {
       margin-top: 64px;
       display: flex;
@@ -199,30 +245,41 @@
       background: linear-gradient(to bottom, var(--gold), transparent);
       animation: scrollPulse 2.2s ease-in-out infinite;
     }
-
-    /* ── BIO SECTION ── */
+ 
+    /* ============================================================
+       BIO SECTION — short paragraph about you
+       Edit the text inside <p class="bio-text"> in the HTML below
+    ============================================================ */
     .bio-section {
       max-width: 680px;
       margin: 0 auto;
       padding: 90px 32px 70px;
     }
-
+ 
+    /* decorative gold rule above the bio */
     .section-rule {
       width: 36px;
       height: 1px;
       background: var(--gold);
       margin-bottom: 30px;
     }
-
+ 
     .bio-text {
       font-size: 16px;
       font-weight: 300;
       line-height: 1.9;
       color: var(--white-soft);
     }
+    /* wrap words in <strong> to make them stand out in white */
     .bio-text strong { color: var(--white); font-weight: 400; }
-
-    /* ── NAV BOXES ── */
+ 
+    /* ============================================================
+       NAV BOXES — the large clickable rectangles
+       Each box links to another page.
+       To add a new box: copy one .nav-box block and update the
+       href, label, title, and desc.
+       Order here = visual order on page.
+    ============================================================ */
     .nav-boxes {
       max-width: 680px;
       margin: 0 auto;
@@ -231,7 +288,7 @@
       flex-direction: column;
       gap: 14px;
     }
-
+ 
     .nav-box {
       display: block;
       text-decoration: none;
@@ -241,8 +298,8 @@
       overflow: hidden;
       transition: border-color 0.3s, background 0.3s;
     }
-
-    /* gold shimmer fill on hover */
+ 
+    /* subtle gold wash that appears on hover */
     .nav-box::before {
       content: '';
       position: absolute;
@@ -253,8 +310,8 @@
     }
     .nav-box:hover { border-color: rgba(201,168,76,0.85); }
     .nav-box:hover::before { opacity: 1; }
-
-    /* bottom-right corner brackets */
+ 
+    /* animated corner brackets that grow on hover */
     .nav-box .corner-tl,
     .nav-box .corner-br {
       position: absolute;
@@ -274,7 +331,7 @@
     }
     .nav-box:hover .corner-tl,
     .nav-box:hover .corner-br { opacity: 1; width: 22px; height: 22px; }
-
+ 
     .nav-box-inner {
       position: relative;
       z-index: 1;
@@ -282,7 +339,8 @@
       align-items: center;
       justify-content: space-between;
     }
-
+ 
+    /* small uppercase label above the title */
     .nav-box-label {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 10px;
@@ -292,7 +350,8 @@
       color: var(--gold);
       margin-bottom: 8px;
     }
-
+ 
+    /* large title text */
     .nav-box-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 38px;
@@ -300,7 +359,8 @@
       letter-spacing: 0.05em;
       color: var(--white);
     }
-
+ 
+    /* small description below the title */
     .nav-box-desc {
       margin-top: 6px;
       font-size: 13px;
@@ -308,7 +368,8 @@
       color: var(--white-muted);
       letter-spacing: 0.03em;
     }
-
+ 
+    /* arrow that slides right on hover */
     .nav-box-arrow {
       font-size: 26px;
       color: var(--gold);
@@ -318,8 +379,11 @@
       margin-left: 28px;
     }
     .nav-box:hover .nav-box-arrow { opacity: 1; transform: translateX(7px); }
-
-    /* ── FOOTER ── */
+ 
+    /* ============================================================
+       FOOTER — bottom strip
+       Edit the text in the <footer> tag in the HTML below
+    ============================================================ */
     footer {
       border-top: 1px solid rgba(255,255,255,0.06);
       padding: 26px 40px;
@@ -339,8 +403,10 @@
       background: var(--gold);
       opacity: 0.35;
     }
-
-    /* ── ANIMATIONS ── */
+ 
+    /* ============================================================
+       ANIMATIONS
+    ============================================================ */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -355,51 +421,74 @@
       0%, 100% { opacity: 0.35; transform: scaleY(1); }
       50%       { opacity: 1;    transform: scaleY(1.12); }
     }
-
+ 
+    /* scroll-triggered reveal — elements fade up as you scroll to them */
     .reveal {
       opacity: 0;
       transform: translateY(26px);
       transition: opacity 0.75s ease, transform 0.75s ease;
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
+ 
+    /* ============================================================
+       RESPONSIVE — adjustments for small screens
+    ============================================================ */
     @media (max-width: 600px) {
       .nav-boxes { padding: 0 20px 80px; }
       .nav-box { padding: 28px 24px; }
       .nav-box-title { font-size: 30px; }
       footer { flex-direction: column; gap: 10px; }
     }
+ 
   </style>
 </head>
 <body>
-
+ 
+  <!-- TOP GOLD LINE -->
   <div class="top-rule"></div>
-
-  <!-- HERO -->
+ 
+  <!-- ============================================================
+       HERO — edit your name, school, and email here
+  ============================================================ -->
   <div class="hero">
-
+ 
+    <!-- PROFILE PHOTO
+         Currently shows "JF" initials as a placeholder.
+         To use a real photo:
+           1. Upload your image (e.g. photo.jpg) to your GitHub repo root
+           2. Delete the line: <div class="avatar-placeholder">JF</div>
+           3. Add this line instead: <img src="photo.jpg" alt="Jack Foster">
+    -->
     <div class="avatar-wrap">
       <div class="avatar-ring"></div>
       <div class="avatar-ring-bg"></div>
       <div class="avatar">
-        <!-- To add your photo, replace the div below with:
-             <img src="photo.jpg" alt="Jack Foster"> -->
         <div class="avatar-placeholder">JF</div>
+        <!-- <img src="photo.jpg" alt="Jack Foster"> -->
       </div>
     </div>
-
+ 
+    <!-- NAME — "Foster" is wrapped in <em> to make it gold -->
     <h1 class="hero-name">Jack <em>Foster</em></h1>
+ 
+    <!-- SCHOOL LINE — edit the text between the tags -->
     <p class="hero-school">Sixth Form &nbsp;·&nbsp; King Edward VI Grammar School &nbsp;·&nbsp; A-Levels</p>
-    <a href="mailto:your@email.com" class="hero-email">jrfoster2009@hotmail.com</a>
-
+ 
+    <!-- EMAIL — update both the href and the visible text -->
+    <a href="mailto:jrfoster2009@hotmail.com" class="hero-email">jrfoster2009@hotmail.com</a>
+ 
+    <!-- SCROLL INDICATOR — purely decorative, no need to edit -->
     <div class="scroll-hint">
       <span>Scroll</span>
       <div class="scroll-line"></div>
     </div>
-
+ 
   </div>
-
-  <!-- BIO -->
+ 
+  <!-- ============================================================
+       BIO — edit the paragraph text here
+       Wrap key words in <strong> to highlight them in white
+  ============================================================ -->
   <div class="bio-section reveal">
     <div class="section-rule"></div>
     <p class="bio-text">
@@ -409,10 +498,16 @@
       figuring out how stuff works. This site is where I document it all.
     </p>
   </div>
-
-  <!-- NAV BOXES -->
+ 
+  <!-- ============================================================
+       NAV BOXES — one block per destination page
+       Order: Links → Experience → Projects → Hobbies
+       To edit a box: update the href, nav-box-label, nav-box-title, nav-box-desc
+       To add a box: copy the whole <a class="nav-box"> block and paste below
+  ============================================================ -->
   <div class="nav-boxes">
-
+ 
+    <!-- LINKS -->
     <a href="links.html" class="nav-box reveal">
       <div class="corner-tl"></div>
       <div class="corner-br"></div>
@@ -425,7 +520,22 @@
         <div class="nav-box-arrow">→</div>
       </div>
     </a>
-
+ 
+    <!-- EXPERIENCE -->
+    <a href="experience.html" class="nav-box reveal">
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+      <div class="nav-box-inner">
+        <div>
+          <div class="nav-box-label">Academics &amp; Work</div>
+          <div class="nav-box-title">Experience</div>
+          <div class="nav-box-desc">A-Level results, work experience &amp; achievements</div>
+        </div>
+        <div class="nav-box-arrow">→</div>
+      </div>
+    </a>
+ 
+    <!-- PROJECTS -->
     <a href="projects.html" class="nav-box reveal">
       <div class="corner-tl"></div>
       <div class="corner-br"></div>
@@ -438,16 +548,33 @@
         <div class="nav-box-arrow">→</div>
       </div>
     </a>
-
+ 
+    <!-- HOBBIES -->
+    <a href="hobbies.html" class="nav-box reveal">
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+      <div class="nav-box-inner">
+        <div>
+          <div class="nav-box-label">Outside the classroom</div>
+          <div class="nav-box-title">Hobbies</div>
+          <div class="nav-box-desc">International martial artist &amp; sim-racer</div>
+        </div>
+        <div class="nav-box-arrow">→</div>
+      </div>
+    </a>
+ 
   </div>
-
-  <!-- FOOTER -->
+ 
+  <!-- ============================================================
+       FOOTER — edit the left and right text if you want
+  ============================================================ -->
   <footer>
     <p>Jack Foster</p>
     <div class="footer-line"></div>
     <p>Built from scratch</p>
   </footer>
-
+ 
+  <!-- scroll reveal script — no need to edit -->
   <script>
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
@@ -460,15 +587,7 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
   </script>
-
+ 
 </body>
 </html>
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
-
-</body>
-</html>
+ 
