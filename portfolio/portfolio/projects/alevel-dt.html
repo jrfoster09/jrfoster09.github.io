@@ -1,0 +1,285 @@
+---
+layout: default
+title: Adjustable School Lectern
+label: A-Level Design & Technology · NEA
+---
+
+<style>
+  .project-tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .project-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.28);
+    padding: 5px 12px;
+    color: var(--gold);
+  }
+
+  .project-tag.white {
+    color: var(--white-muted);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .project-tag.live {
+    color: rgba(100,200,100,0.8);
+    border-color: rgba(100,200,100,0.25);
+  }
+
+  .project-section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    margin-top: 36px;
+  }
+
+  .project-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.85;
+    margin-bottom: 16px;
+  }
+
+  .project-body strong { color: var(--white); font-weight: 400; }
+
+  /* progress tracker */
+  .progress-track {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 24px 0;
+  }
+
+  .progress-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.012);
+  }
+
+  .progress-step.done {
+    border-color: rgba(201,168,76,0.18);
+  }
+
+  .progress-step.active {
+    border-color: rgba(100,200,100,0.25);
+    background: rgba(100,200,100,0.04);
+  }
+
+  .step-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .progress-step.done  .step-dot { background: var(--gold); border-color: var(--gold); opacity: 0.7; }
+  .progress-step.active .step-dot { background: rgba(100,200,100,0.8); border-color: rgba(100,200,100,0.8); }
+
+  .step-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    flex: 1;
+  }
+
+  .progress-step.done  .step-label { color: var(--white-soft); }
+  .progress-step.active .step-label { color: rgba(100,200,100,0.85); }
+
+  .step-status {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+  }
+
+  .progress-step.done  .step-status { color: rgba(201,168,76,0.5); }
+  .progress-step.active .step-status { color: rgba(100,200,100,0.6); }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 20px 0;
+  }
+
+  .spec-item {
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.012);
+  }
+
+  .spec-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+
+  .spec-value {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.6;
+  }
+
+  .in-progress-banner {
+    border: 1px solid rgba(100,200,100,0.25);
+    background: rgba(100,200,100,0.04);
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(100,200,100,0.75);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .in-progress-banner::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(100,200,100,0.8);
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @media (max-width: 540px) {
+    .spec-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="project-tag-row">
+  <span class="project-tag">A-Level Design &amp; Technology</span>
+  <span class="project-tag live">In Progress</span>
+  <span class="project-tag white">NEA</span>
+  <span class="project-tag white">Walnut · Wood</span>
+</div>
+
+<div class="in-progress-banner">
+  Live project · Currently in research &amp; development phase
+</div>
+
+<div class="project-section-label">// Overview</div>
+<p class="project-body">
+  My A-Level Design &amp; Technology Non-Examined Assessment centres on the design and
+  manufacture of a <strong>height-adjustable lectern</strong> for King Edward VI Grammar
+  School. Commissioned by the school's headteacher, the brief requires a product that can
+  be comfortably used by the full range of people who might stand at it — from the
+  <strong>smallest Year 7 student</strong> through to tall adults — while also incorporating
+  <strong>accessibility provisions for disabled users</strong>.
+</p>
+<p class="project-body">
+  This is a real client project with a real end user, which means the design process must
+  be grounded in genuine anthropometric research, user consultation, and a considered
+  manufacturing specification rather than an abstract exercise.
+</p>
+
+<div class="project-section-label">// Design Specification</div>
+<div class="spec-grid">
+  <div class="spec-item">
+    <div class="spec-label">Client</div>
+    <div class="spec-value">King Edward VI Grammar School Headteacher</div>
+  </div>
+  <div class="spec-item">
+    <div class="spec-label">Primary Material</div>
+    <div class="spec-value">Walnut (subject to final review)</div>
+  </div>
+  <div class="spec-item">
+    <div class="spec-label">Key Requirement</div>
+    <div class="spec-value">Full height adjustability — Year 7 to adult range</div>
+  </div>
+  <div class="spec-item">
+    <div class="spec-label">Accessibility</div>
+    <div class="spec-value">Provisions for wheelchair and disabled users</div>
+  </div>
+  <div class="spec-item">
+    <div class="spec-label">Setting</div>
+    <div class="spec-value">School assembly hall / presentation environment</div>
+  </div>
+  <div class="spec-item">
+    <div class="spec-label">Completion</div>
+    <div class="spec-value">2027</div>
+  </div>
+</div>
+
+<div class="project-section-label">// Design Thinking</div>
+<p class="project-body">
+  Walnut is currently the leading material candidate — its <strong>rich grain, structural
+  density, and aesthetic quality</strong> make it well-suited to a piece of furniture
+  intended for a formal school environment. A lectern needs to feel considered and
+  substantial; cheap materials would undermine the authority of whoever is standing at it.
+</p>
+<p class="project-body">
+  The adjustability mechanism is the central design challenge. It must be intuitive enough
+  to operate quickly in front of an audience, reliable enough to hold a fixed position
+  under load, and robust enough to survive years of school use. Research into existing
+  adjustable furniture systems — including sit-stand desks and architectural lecterns — is
+  informing the mechanism approach.
+</p>
+<p class="project-body">
+  Accessibility is not an afterthought in this design but a core parameter from the outset.
+  This means considering surface angle, approach clearance for wheelchair users, and
+  control reachability — requirements that intersect with and shape the structural design
+  rather than being bolted on afterwards.
+</p>
+
+<div class="project-section-label">// Project Progress</div>
+<div class="progress-track">
+  <div class="progress-step done">
+    <div class="step-dot"></div>
+    <div class="step-label">Client brief &amp; initial research</div>
+    <div class="step-status">Complete</div>
+  </div>
+  <div class="progress-step active">
+    <div class="step-dot"></div>
+    <div class="step-label">Research &amp; development</div>
+    <div class="step-status">In progress</div>
+  </div>
+  <div class="progress-step">
+    <div class="step-dot"></div>
+    <div class="step-label">Concept generation &amp; development</div>
+    <div class="step-status">Upcoming</div>
+  </div>
+  <div class="progress-step">
+    <div class="step-dot"></div>
+    <div class="step-label">Technical drawings &amp; specification</div>
+    <div class="step-status">Upcoming</div>
+  </div>
+  <div class="progress-step">
+    <div class="step-dot"></div>
+    <div class="step-label">Manufacture</div>
+    <div class="step-status">Upcoming</div>
+  </div>
+  <div class="progress-step">
+    <div class="step-dot"></div>
+    <div class="step-label">Evaluation &amp; client handover</div>
+    <div class="step-status">2027</div>
+  </div>
+</div>
