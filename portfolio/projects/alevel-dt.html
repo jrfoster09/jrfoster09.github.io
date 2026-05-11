@@ -1,17 +1,27 @@
 ---
 layout: default
 title: Adjustable School Lectern
-label: A-Level Design & Technology · NEA
+label: DT · A-Level NEA
 ---
 
 <style>
+
+  .project-hero {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    object-position: center 40%;
+    display: block;
+    margin-bottom: 32px;
+    filter: brightness(0.85);
+  }
+
   .project-tag-row {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 28px;
   }
-
   .project-tag {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 9px;
@@ -21,119 +31,126 @@ label: A-Level Design & Technology · NEA
     padding: 5px 12px;
     color: var(--gold);
   }
-
   .project-tag.white {
     color: var(--white-muted);
     border-color: rgba(255,255,255,0.1);
   }
-
   .project-tag.live {
-    color: rgba(100,200,100,0.8);
-    border-color: rgba(100,200,100,0.25);
+    color: #4caf7d;
+    border-color: rgba(76,175,125,0.4);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .project-tag.live::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4caf7d;
+    display: inline-block;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
   }
 
-  .project-section-label {
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 36px;
+  }
+  .stat-box {
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 18px 16px;
+    background: rgba(255,255,255,0.012);
+  }
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 6px;
+  }
+
+  /* progress bar */
+  .progress-wrap { margin: 0 0 48px; }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .progress-label span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+  }
+  .progress-label .progress-pct { color: var(--gold); }
+  .progress-track {
+    width: 100%;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 35%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+
+  .section-label {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 10px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 12px;
-    margin-top: 36px;
+    margin-bottom: 20px;
+    margin-top: 8px;
   }
 
-  .project-body {
+  .body-text {
     font-size: 14px;
     font-weight: 300;
     color: var(--white-soft);
     line-height: 1.85;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
+  .body-text strong { color: var(--white); font-weight: 400; }
 
-  .project-body strong { color: var(--white); font-weight: 400; }
-
-  /* progress tracker */
-  .progress-track {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin: 24px 0;
-  }
-
-  .progress-step {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 13px 16px;
-    border: 1px solid rgba(255,255,255,0.05);
-    background: rgba(255,255,255,0.012);
-  }
-
-  .progress-step.done {
-    border-color: rgba(201,168,76,0.18);
-  }
-
-  .progress-step.active {
-    border-color: rgba(100,200,100,0.25);
-    background: rgba(100,200,100,0.04);
-  }
-
-  .step-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-  }
-
-  .progress-step.done  .step-dot { background: var(--gold); border-color: var(--gold); opacity: 0.7; }
-  .progress-step.active .step-dot { background: rgba(100,200,100,0.8); border-color: rgba(100,200,100,0.8); }
-
-  .step-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--white-muted);
-    flex: 1;
-  }
-
-  .progress-step.done  .step-label { color: var(--white-soft); }
-  .progress-step.active .step-label { color: rgba(100,200,100,0.85); }
-
-  .step-status {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--white-muted);
-  }
-
-  .progress-step.done  .step-status { color: rgba(201,168,76,0.5); }
-  .progress-step.active .step-status { color: rgba(100,200,100,0.6); }
-
+  /* spec grid */
   .spec-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2px;
-    margin: 20px 0;
+    margin: 20px 0 36px;
   }
-
-  .spec-item {
+  .spec-card {
+    border: 1px solid rgba(201,168,76,0.15);
     padding: 14px 16px;
-    border: 1px solid rgba(255,255,255,0.05);
     background: rgba(255,255,255,0.012);
   }
-
   .spec-label {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 9px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--gold);
+    opacity: 0.8;
     margin-bottom: 5px;
   }
-
   .spec-value {
     font-size: 13px;
     font-weight: 300;
@@ -141,145 +158,465 @@ label: A-Level Design & Technology · NEA
     line-height: 1.6;
   }
 
-  .in-progress-banner {
-    border: 1px solid rgba(100,200,100,0.25);
-    background: rgba(100,200,100,0.04);
-    padding: 14px 18px;
-    margin-bottom: 28px;
+  /* timeline */
+  .project-timeline {
+    position: relative;
+    padding: 8px 0 40px 0;
+    margin-top: 8px;
+  }
+  .project-timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.25) 85%, transparent);
+  }
+
+  .phase {
+    position: relative;
+    padding: 0 0 52px 54px;
+  }
+  .phase::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 5px;
+    width: 23px; height: 23px;
+    border-radius: 50%;
+    background: #141414;
+    border: 1px solid rgba(201,168,76,0.55);
+  }
+  .phase::after {
+    content: '';
+    position: absolute;
+    left: 13px; top: 11px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.75;
+  }
+
+  /* current phase */
+  .phase.current::before {
+    border-color: #4caf7d;
+    box-shadow: 0 0 10px rgba(76,175,125,0.3);
+  }
+  .phase.current::after { background: #4caf7d; opacity: 0.9; }
+  .phase.current .phase-title { color: #4caf7d; }
+  .phase.current .phase-date { color: #4caf7d; }
+
+  /* upcoming phase */
+  .phase.upcoming { opacity: 0.4; }
+  .phase.upcoming::before {
+    border-style: dashed;
+    border-color: rgba(201,168,76,0.35);
+    background: transparent;
+  }
+  .phase.upcoming::after { display: none; }
+  .phase.upcoming .phase-date { color: var(--white-muted); }
+
+  .phase-date {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.85;
+    margin-bottom: 6px;
+    margin-top: 2px;
+  }
+  .phase-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  .phase-body {
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.82;
+    margin-bottom: 14px;
+  }
+  .phase-body strong { color: var(--white); font-weight: 400; }
+
+  .phase-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin-top: 16px;
+    filter: brightness(0.88);
+    border: 1px solid rgba(201,168,76,0.12);
+  }
+  .phase-img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-top: 16px;
+  }
+  .phase-img-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: brightness(0.88);
+    border: 1px solid rgba(201,168,76,0.12);
+  }
+
+  /* fea callout */
+  .fea-callout {
+    border: 1px solid rgba(201,168,76,0.2);
+    background: rgba(255,255,255,0.012);
+    padding: 16px 20px;
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .fea-stat { padding: 10px 12px; }
+  .fea-stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .fea-stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(100,200,100,0.75);
+    color: var(--white-muted);
+    margin-top: 4px;
+  }
+
+  .report-link {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
+    border: 1px solid rgba(201,168,76,0.28);
+    padding: 20px 24px;
+    margin-top: 48px;
+    text-decoration: none;
+    color: var(--white);
+    transition: border-color 0.3s;
+    position: relative;
+    overflow: hidden;
   }
-
-  .in-progress-banner::before {
+  .report-link::before {
     content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: rgba(100,200,100,0.8);
-    animation: pulse 2s infinite;
-    flex-shrink: 0;
+    position: absolute;
+    inset: 0;
+    background: var(--gold-dim);
+    opacity: 0;
+    transition: opacity 0.3s;
   }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+  .report-link:hover { border-color: rgba(201,168,76,0.7); }
+  .report-link:hover::before { opacity: 1; }
+  .report-link-icon { font-size: 24px; position: relative; z-index: 1; }
+  .report-link-text { position: relative; z-index: 1; }
+  .report-link-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
   }
+  .report-link-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 3px;
+  }
+  .report-link-arrow {
+    margin-left: auto;
+    font-size: 20px;
+    color: var(--gold);
+    opacity: 0.4;
+    transition: opacity 0.3s, transform 0.3s;
+    position: relative;
+    z-index: 1;
+  }
+  .report-link:hover .report-link-arrow { opacity: 1; transform: translateX(5px); }
 
   @media (max-width: 540px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
     .spec-grid { grid-template-columns: 1fr; }
+    .phase-img-grid { grid-template-columns: 1fr; }
+    .phase-img-grid img { height: 220px; }
+    .fea-callout { grid-template-columns: 1fr 1fr; }
+    .project-hero { height: 220px; }
   }
+
 </style>
 
-<div class="project-tag-row">
-  <span class="project-tag">A-Level Design &amp; Technology</span>
+<!-- HERO — existing school lectern contextual photo -->
+<img src="/assets/images/alevel-dt/existing-lectern.jpg"
+     alt="The existing King Edward VI Grammar School lectern — the starting point for this project"
+     class="project-hero">
+
+<div class="project-tag-row reveal">
+  <span class="project-tag">A-Level DT · NEA</span>
+  <span class="project-tag white">Individual Project</span>
+  <span class="project-tag white">King Edward VI Grammar School</span>
   <span class="project-tag live">In Progress</span>
-  <span class="project-tag white">NEA</span>
-  <span class="project-tag white">Walnut · Wood</span>
 </div>
 
-<div class="in-progress-banner">
-  Live project · Currently in research &amp; development phase
-</div>
-
-<div class="project-section-label">// Overview</div>
-<p class="project-body">
-  My A-Level Design &amp; Technology Non-Examined Assessment centres on the design and
-  manufacture of a <strong>height-adjustable lectern</strong> for King Edward VI Grammar
-  School. Commissioned by the school's headteacher, the brief requires a product that can
-  be comfortably used by the full range of people who might stand at it — from the
-  <strong>smallest Year 7 student</strong> through to tall adults — while also incorporating
-  <strong>accessibility provisions for disabled users</strong>.
-</p>
-<p class="project-body">
-  This is a real client project with a real end user, which means the design process must
-  be grounded in genuine anthropometric research, user consultation, and a considered
-  manufacturing specification rather than an abstract exercise.
-</p>
-
-<div class="project-section-label">// Design Specification</div>
-<div class="spec-grid">
-  <div class="spec-item">
-    <div class="spec-label">Client</div>
-    <div class="spec-value">King Edward VI Grammar School Headteacher</div>
+<div class="stat-row reveal">
+  <div class="stat-box">
+    <div class="stat-value">7,500+</div>
+    <div class="stat-label">Words so far</div>
   </div>
-  <div class="spec-item">
-    <div class="spec-label">Primary Material</div>
-    <div class="spec-value">Walnut (subject to final review)</div>
+  <div class="stat-box">
+    <div class="stat-value">11</div>
+    <div class="stat-label">Slides completed</div>
   </div>
-  <div class="spec-item">
-    <div class="spec-label">Key Requirement</div>
-    <div class="spec-value">Full height adjustability — Year 7 to adult range</div>
+  <div class="stat-box">
+    <div class="stat-value">~40k</div>
+    <div class="stat-label">Projected words</div>
   </div>
-  <div class="spec-item">
-    <div class="spec-label">Accessibility</div>
-    <div class="spec-value">Provisions for wheelchair and disabled users</div>
-  </div>
-  <div class="spec-item">
-    <div class="spec-label">Setting</div>
-    <div class="spec-value">School assembly hall / presentation environment</div>
-  </div>
-  <div class="spec-item">
-    <div class="spec-label">Completion</div>
-    <div class="spec-value">2027</div>
+  <div class="stat-box">
+    <div class="stat-value">2027</div>
+    <div class="stat-label">Completion</div>
   </div>
 </div>
 
-<div class="project-section-label">// Design Thinking</div>
-<p class="project-body">
-  Walnut is currently the leading material candidate — its <strong>rich grain, structural
-  density, and aesthetic quality</strong> make it well-suited to a piece of furniture
-  intended for a formal school environment. A lectern needs to feel considered and
-  substantial; cheap materials would undermine the authority of whoever is standing at it.
-</p>
-<p class="project-body">
-  The adjustability mechanism is the central design challenge. It must be intuitive enough
-  to operate quickly in front of an audience, reliable enough to hold a fixed position
-  under load, and robust enough to survive years of school use. Research into existing
-  adjustable furniture systems — including sit-stand desks and architectural lecterns — is
-  informing the mechanism approach.
-</p>
-<p class="project-body">
-  Accessibility is not an afterthought in this design but a core parameter from the outset.
-  This means considering surface angle, approach clearance for wheelchair users, and
-  control reachability — requirements that intersect with and shape the structural design
-  rather than being bolted on afterwards.
-</p>
-
-<div class="project-section-label">// Project Progress</div>
-<div class="progress-track">
-  <div class="progress-step done">
-    <div class="step-dot"></div>
-    <div class="step-label">Client brief &amp; initial research</div>
-    <div class="step-status">Complete</div>
+<!-- Progress bar -->
+<div class="progress-wrap reveal">
+  <div class="progress-label">
+    <span>Project Progress</span>
+    <span class="progress-pct">Research &amp; Specification Complete</span>
   </div>
-  <div class="progress-step active">
-    <div class="step-dot"></div>
-    <div class="step-label">Research &amp; development</div>
-    <div class="step-status">In progress</div>
-  </div>
-  <div class="progress-step">
-    <div class="step-dot"></div>
-    <div class="step-label">Concept generation &amp; development</div>
-    <div class="step-status">Upcoming</div>
-  </div>
-  <div class="progress-step">
-    <div class="step-dot"></div>
-    <div class="step-label">Technical drawings &amp; specification</div>
-    <div class="step-status">Upcoming</div>
-  </div>
-  <div class="progress-step">
-    <div class="step-dot"></div>
-    <div class="step-label">Manufacture</div>
-    <div class="step-status">Upcoming</div>
-  </div>
-  <div class="progress-step">
-    <div class="step-dot"></div>
-    <div class="step-label">Evaluation &amp; client handover</div>
-    <div class="step-status">2027</div>
+  <div class="progress-track">
+    <div class="progress-fill"></div>
   </div>
 </div>
+
+<div class="section-label reveal">// Overview</div>
+<p class="body-text reveal">
+  The A-Level Design &amp; Technology Non-Examined Assessment is a two-year individual
+  project spanning the full design cycle — from client brief through research, design
+  development, manufacture, and evaluation. This project began in
+  <strong>September 2025</strong> and will complete in <strong>Spring 2027</strong>,
+  with the final document projected to reach approximately <strong>40,000 words
+  across 60+ slides</strong>.
+</p>
+<p class="body-text reveal">
+  The brief is to design and manufacture a <strong>height-adjustable wooden lectern
+  for King Edward VI Grammar School</strong> — replacing the school's ageing existing
+  lectern, which has been in continuous use for decades. The new lectern must
+  accommodate the full range of users who present at school assemblies, from
+  Year 7 students to tall adults, and must include an <strong>accessible
+  wheelchair-height position</strong>. It will be used by the Headteacher and
+  Senior Leadership Team as a permanent fixture of the school's assembly hall.
+</p>
+
+<div class="section-label reveal">// Client</div>
+<p class="body-text reveal">
+  The primary client is <strong>Natalie Wilson</strong>, Headteacher of King Edward VI
+  Grammar School. As a presenter at whole-school assemblies every Tuesday and Friday,
+  as well as termly and annual events, she is one of the most frequent users of the
+  existing lectern — making her an ideal client for a project of this nature. The
+  Senior Leadership Team and student speakers have also been consulted as secondary
+  users throughout the research phase.
+</p>
+
+<div class="section-label reveal">// Specification</div>
+<div class="spec-grid reveal">
+  <div class="spec-card">
+    <div class="spec-label">Height Range</div>
+    <div class="spec-value">890mm – 1,220mm adjustable, plus wheelchair-accessible position (~800–900mm)</div>
+  </div>
+  <div class="spec-card">
+    <div class="spec-label">Aesthetic</div>
+    <div class="spec-value">Traditional wooden construction — school crest engraved, honouring the existing design language</div>
+  </div>
+  <div class="spec-card">
+    <div class="spec-label">Integrated Features</div>
+    <div class="spec-value">Reading light (4000–5000K, 30° angle), microphone slot, notes clip, tilted reading surface (20–25°)</div>
+  </div>
+  <div class="spec-card">
+    <div class="spec-label">Mechanism</div>
+    <div class="spec-value">Dual telescopic columns with push-pin height adjustment, gas strut assistance under consideration</div>
+  </div>
+  <div class="spec-card">
+    <div class="spec-label">Budget &amp; Lifespan</div>
+    <div class="spec-value">Under £2,000 — designed to last a minimum of 10 years in active use</div>
+  </div>
+  <div class="spec-card">
+    <div class="spec-label">Portability</div>
+    <div class="spec-value">Lightweight enough to move between rooms; wireless where possible to avoid cable dependency</div>
+  </div>
+</div>
+
+<div class="section-label reveal">// Project Timeline</div>
+
+<div class="project-timeline">
+
+  <!-- 1. BRIEF & RESEARCH — complete -->
+  <div class="phase reveal">
+    <div class="phase-date">September – November 2025</div>
+    <div class="phase-title">Brief &amp; Research</div>
+    <p class="phase-body">
+      The project opened with a <strong>task analysis</strong> mapping the problem
+      space across the contexts of school life — identifying the ageing assembly
+      hall lectern as the strongest opportunity for meaningful design intervention.
+      Research covered the existing lectern's history, condition, and storage
+      environment; three existing commercial lectern designs analysed for pros
+      and cons; and four height-adjustment mechanisms evaluated for feasibility
+      in a school workshop context.
+    </p>
+    <p class="phase-body">
+      <strong>Anthropometric research</strong> was conducted using Henry Dreyfuss
+      Associates' <em>The Measure of Man and Woman</em> to establish the upper
+      and lower bounds of the required height range — from the elbow height of an
+      average Year 7 student (~890mm) to the 99th percentile adult male (~1,220mm).
+      Wheelchair accessibility was researched both from published standards and
+      through <strong>primary research</strong>: borrowing the school's medical room
+      wheelchair and measuring two participants of significantly different heights
+      to determine a practical accessible position of 800–900mm.
+    </p>
+    <p class="phase-body">
+      Additional specific research covered <strong>reading surface angle</strong>
+      (20–25° optimal for fixed-height surfaces), <strong>reading light
+      specification</strong> (500 lux, 4000–5000K neutral white, 30° angle to
+      avoid glare), and <strong>microphone integration</strong> — including a
+      consultation with the KEGS Technical Team, who confirmed the school's sound
+      system is wireless, enabling a fully cable-free lectern design.
+    </p>
+    <div class="phase-img-grid">
+      <img src="/assets/images/alevel-dt/existing-lectern-research.jpg"
+           alt="The existing school lectern — research reference">
+      <img src="/assets/images/alevel-dt/moodboard.png"
+           alt="Visual research mood board">
+    </div>
+  </div>
+
+  <!-- 2. CLIENT INTERVIEW — complete -->
+  <div class="phase reveal">
+    <div class="phase-date">October 2025</div>
+    <div class="phase-title">Client Interview</div>
+    <p class="phase-body">
+      A formal interview was conducted with <strong>Headteacher Natalie Wilson
+      and the Senior Leadership Team</strong>, presenting an A3 sheet of initial
+      design concepts and gathering structured feedback on style, mechanism,
+      features, and budget. Key outcomes from the interview shaped the entire
+      design direction:
+    </p>
+    <p class="phase-body">
+      The client strongly preferred a <strong>traditional aesthetic</strong>
+      — "a traditional looking, but modern functioning lectern" — ruling out
+      the modern metal-frame designs in favour of carved wood. She favoured the
+      <strong>push-pin mechanism</strong> for its simplicity and range of
+      adjustment, requested a <strong>tilted reading surface</strong> so notes
+      stay in eyeline, and expressed a clear preference for integrated notes
+      storage and a reading light. The school crest was identified as a desirable
+      engraved feature. Budget was confirmed at <strong>£1,500–£2,000</strong>,
+      with potential sponsorship from the Foundation Trustees.
+    </p>
+    <img src="/assets/images/alevel-dt/initial-sketches.png"
+         alt="Initial design sketches presented to the client at interview"
+         class="phase-img">
+  </div>
+
+  <!-- 3. DESIGN DEVELOPMENT — current -->
+  <div class="phase current reveal">
+    <div class="phase-date">November 2025 – Present · In Progress</div>
+    <div class="phase-title">Design &amp; Engineering Analysis</div>
+    <p class="phase-body">
+      With the specification confirmed, design development is currently underway.
+      The height-adjustment mechanism has been modelled in <strong>Autodesk
+      Inventor</strong> — a dual telescopic column system with a push-pin on each
+      side, allowing the inner column to be raised or lowered and locked at the
+      desired height. The mechanism was designed to the established height range,
+      with pin positions calculated to give a suitable number of height increments
+      across the full adjustment range.
+    </p>
+    <p class="phase-body">
+      <strong>Finite Element Analysis</strong> was carried out in Autodesk Inventor
+      on the push-pin component, applying a <strong>500N maximum load</strong> to
+      validate the pin under realistic use conditions. The analysis produced two
+      key outputs: a Von Mises stress result and a displacement result.
+    </p>
+    <div class="phase-img-grid">
+      <img src="/assets/images/alevel-dt/fea-stress.jpeg"
+           alt="Von Mises stress FEA — push-pin under 500N load">
+      <img src="/assets/images/alevel-dt/fea-displacement.jpeg"
+           alt="Displacement FEA — push-pin under 500N load">
+    </div>
+    <div class="fea-callout">
+      <div class="fea-stat">
+        <div class="fea-stat-value">77.6 MPa</div>
+        <div class="fea-stat-label">Max Von Mises stress · pin head</div>
+      </div>
+      <div class="fea-stat">
+        <div class="fea-stat-value">0.013mm</div>
+        <div class="fea-stat-label">Max displacement · 500N load</div>
+      </div>
+      <div class="fea-stat">
+        <div class="fea-stat-value">500N</div>
+        <div class="fea-stat-label">Applied test load</div>
+      </div>
+      <div class="fea-stat">
+        <div class="fea-stat-value">Passed</div>
+        <div class="fea-stat-label">Structural validation</div>
+      </div>
+    </div>
+    <p class="phase-body" style="margin-top: 16px;">
+      The near-zero displacement result confirms the pin geometry is
+      structurally sound under the expected loads — the 0.013mm maximum
+      deflection is negligible in the context of a lectern mechanism.
+      Stress concentration at the pin head is expected and will inform
+      material selection and any geometry refinements in the next phase.
+    </p>
+    <img src="/assets/images/alevel-dt/cad-mechanism.png"
+         alt="CAD model of the dual telescopic column push-pin mechanism in Autodesk Inventor"
+         class="phase-img">
+  </div>
+
+  <!-- 4. FULL CAD MODEL — upcoming -->
+  <div class="phase upcoming reveal">
+    <div class="phase-date">Coming Next</div>
+    <div class="phase-title">Full CAD Model</div>
+    <p class="phase-body">
+      Complete 3D modelling of the full lectern assembly in Fusion 360 —
+      body, columns, reading surface, integrated features, and school crest detail.
+    </p>
+  </div>
+
+  <!-- 5. MANUFACTURE — upcoming -->
+  <div class="phase upcoming reveal">
+    <div class="phase-date">2026</div>
+    <div class="phase-title">Manufacture</div>
+    <p class="phase-body">
+      Physical construction of the lectern in the school workshop, working
+      to the finalised CAD model and manufacturing drawings.
+    </p>
+  </div>
+
+  <!-- 6. TESTING & EVALUATION — upcoming -->
+  <div class="phase upcoming reveal">
+    <div class="phase-date">Spring 2027</div>
+    <div class="phase-title">Testing &amp; Evaluation</div>
+    <p class="phase-body">
+      Testing against the full specification with client sign-off from
+      Miss Wilson and the Senior Leadership Team. Final NEA folder submitted.
+    </p>
+  </div>
+
+</div>
+
+<!-- NEA folder — available post A-Levels -->
+<a href="#" class="report-link reveal">
+  <div class="report-link-icon">📄</div>
+  <div class="report-link-text">
+    <div class="report-link-title">A-Level DT NEA Folder</div>
+    <div class="report-link-sub">Full design process document · Available post A-Levels 2027</div>
+  </div>
+  <div class="report-link-arrow">→</div>
+</a>
