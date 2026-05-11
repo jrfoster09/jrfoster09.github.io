@@ -5,14 +5,15 @@ label: Competition · Robotics
 ---
 
 <style>
-  .project-hero-image {
+
+  .project-hero {
     width: 100%;
-    height: 320px;
+    height: 340px;
     object-fit: cover;
-    object-position: center 30%;
+    object-position: center 40%;
     display: block;
-    margin-bottom: 36px;
-    filter: brightness(0.9);
+    margin-bottom: 32px;
+    filter: brightness(0.85);
   }
 
   .project-tag-row {
@@ -21,7 +22,6 @@ label: Competition · Robotics
     gap: 8px;
     margin-bottom: 28px;
   }
-
   .project-tag {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 9px;
@@ -31,7 +31,6 @@ label: Competition · Robotics
     padding: 5px 12px;
     color: var(--gold);
   }
-
   .project-tag.white {
     color: var(--white-muted);
     border-color: rgba(255,255,255,0.1);
@@ -44,21 +43,16 @@ label: Competition · Robotics
     border: 1px solid rgba(201,168,76,0.35);
     background: rgba(201,168,76,0.06);
     padding: 16px 20px;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
   }
-
-  .award-banner-icon { font-size: 22px; }
-
-  .award-banner-text { }
-
-  .award-banner-title {
+  .award-icon { font-size: 22px; }
+  .award-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 18px;
     font-weight: 400;
     color: var(--gold);
   }
-
-  .award-banner-sub {
+  .award-sub {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 10px;
     letter-spacing: 0.18em;
@@ -67,48 +61,25 @@ label: Competition · Robotics
     margin-top: 2px;
   }
 
-  .project-section-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 12px;
-    margin-top: 36px;
-  }
-
-  .project-body {
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--white-soft);
-    line-height: 1.85;
-    margin-bottom: 16px;
-  }
-
-  .project-body strong { color: var(--white); font-weight: 400; }
-
   .stat-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2px;
-    margin: 28px 0;
+    margin-bottom: 48px;
   }
-
   .stat-box {
     border: 1px solid rgba(201,168,76,0.18);
     padding: 18px 16px;
     background: rgba(255,255,255,0.012);
   }
-
-  .stat-box-value {
+  .stat-value {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 400;
     color: var(--gold);
     line-height: 1;
   }
-
-  .stat-box-label {
+  .stat-label {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 9px;
     letter-spacing: 0.2em;
@@ -117,117 +88,494 @@ label: Competition · Robotics
     margin-top: 6px;
   }
 
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    margin-top: 8px;
+  }
+
+  .body-text {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.85;
+    margin-bottom: 14px;
+  }
+  .body-text strong { color: var(--white); font-weight: 400; }
+
   .role-card {
     border-left: 2px solid var(--gold);
     padding: 14px 18px;
     background: rgba(255,255,255,0.015);
-    margin: 20px 0;
+    margin: 20px 0 36px;
   }
-
-  .role-card-title {
+  .role-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 20px;
     font-weight: 400;
     color: var(--white);
     margin-bottom: 6px;
   }
-
-  .role-card-desc {
+  .role-desc {
     font-size: 13px;
     font-weight: 300;
     color: var(--white-soft);
     line-height: 1.75;
   }
 
-  @media (max-width: 540px) {
-    .stat-row { grid-template-columns: 1fr 1fr; }
-    .project-hero-image { height: 220px; }
+  /* ── TIMELINE ── */
+  .project-timeline {
+    position: relative;
+    padding: 8px 0 40px 0;
+    margin-top: 8px;
   }
+  .project-timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.25) 85%, transparent);
+  }
+
+  .phase {
+    position: relative;
+    padding: 0 0 52px 54px;
+  }
+  .phase::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 5px;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background: #141414;
+    border: 1px solid rgba(201,168,76,0.55);
+  }
+  .phase::after {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 11px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.75;
+  }
+
+  .phase-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.85;
+    margin-bottom: 6px;
+    margin-top: 2px;
+  }
+  .phase-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  .phase-body {
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.82;
+    margin-bottom: 14px;
+  }
+  .phase-body strong { color: var(--white); font-weight: 400; }
+
+  .phase-img {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin-top: 16px;
+    filter: brightness(0.88);
+    border: 1px solid rgba(201,168,76,0.12);
+  }
+  .phase-img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-top: 16px;
+  }
+  .phase-img-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: brightness(0.88);
+    border: 1px solid rgba(201,168,76,0.12);
+  }
+
+  /* finale node */
+  .phase.finale::before {
+    width: 37px;
+    height: 37px;
+    left: 0;
+    top: 4px;
+    background: var(--gold-dim);
+    border-color: var(--gold);
+    box-shadow: 0 0 14px rgba(201,168,76,0.3);
+  }
+  .phase.finale::after { display: none; }
+  .phase.finale .phase-title {
+    font-size: 32px;
+    color: var(--gold);
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin: 16px 0;
+  }
+  .result-card {
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 16px;
+    background: rgba(255,255,255,0.012);
+  }
+  .result-card-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .result-card-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 5px;
+  }
+
+  .report-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid rgba(201,168,76,0.28);
+    padding: 20px 24px;
+    margin-top: 48px;
+    text-decoration: none;
+    color: var(--white);
+    transition: border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold-dim);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .report-link:hover { border-color: rgba(201,168,76,0.7); }
+  .report-link:hover::before { opacity: 1; }
+  .report-link-icon { font-size: 24px; position: relative; z-index: 1; }
+  .report-link-text { position: relative; z-index: 1; }
+  .report-link-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
+  }
+  .report-link-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 3px;
+  }
+  .report-link-arrow {
+    margin-left: auto;
+    font-size: 20px;
+    color: var(--gold);
+    opacity: 0.4;
+    transition: opacity 0.3s, transform 0.3s;
+    position: relative;
+    z-index: 1;
+  }
+  .report-link:hover .report-link-arrow { opacity: 1; transform: translateX(5px); }
+
+  @media (max-width: 540px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+    .phase-img-grid { grid-template-columns: 1fr; }
+    .phase-img-grid img { height: 220px; }
+    .project-hero { height: 220px; }
+  }
+
 </style>
 
-<!-- Hero image — stored in /assets/images/robotics.jpg -->
-<img src="/assets/images/robotics.jpg" alt="Student Robotics 2026 — King Edward VI Grammar School" class="project-hero-image">
+<!-- HERO — use the wide arena shot -->
+<img src="/assets/images/robotics/competition-arena.jpg"
+     alt="Student Robotics 2026 competition arena at the University of Southampton"
+     class="project-hero">
 
-<!-- Tags -->
-<div class="project-tag-row">
+<div class="project-tag-row reveal">
   <span class="project-tag">Student Robotics 2026</span>
   <span class="project-tag white">University of Southampton</span>
   <span class="project-tag white">Autonomous Robotics</span>
+  <span class="project-tag white">7 Months</span>
   <span class="project-tag white">Complete</span>
 </div>
 
-<!-- Award -->
-<div class="award-banner">
-  <div class="award-banner-icon">🏆</div>
-  <div class="award-banner-text">
-    <div class="award-banner-title">Robot &amp; Team Image Award</div>
-    <div class="award-banner-sub">Student Robotics 2026 · King Edward VI Grammar School</div>
+<div class="award-banner reveal">
+  <div class="award-icon">🏆</div>
+  <div>
+    <div class="award-title">Robot &amp; Team Image Award</div>
+    <div class="award-sub">Student Robotics 2026 · King Edward VI Grammar School</div>
   </div>
 </div>
 
-<!-- Stats -->
-<div class="stat-row">
+<div class="stat-row reveal">
   <div class="stat-box">
-    <div class="stat-box-value">4th</div>
-    <div class="stat-box-label">Final placement</div>
+    <div class="stat-value">4th</div>
+    <div class="stat-label">Final placement</div>
   </div>
   <div class="stat-box">
-    <div class="stat-box-value">20+</div>
-    <div class="stat-box-label">Teams competing</div>
+    <div class="stat-value">5th</div>
+    <div class="stat-label">League stage</div>
   </div>
   <div class="stat-box">
-    <div class="stat-box-value">2026</div>
-    <div class="stat-box-label">Competition year</div>
+    <div class="stat-value">20+</div>
+    <div class="stat-label">Teams competing</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-value">7mo</div>
+    <div class="stat-label">Build duration</div>
   </div>
 </div>
 
-<!-- Overview -->
-<div class="project-section-label">// Overview</div>
-<p class="project-body">
+<div class="section-label reveal">// Overview</div>
+<p class="body-text reveal">
   Student Robotics is a UK-wide competition challenging sixth form teams to design, build,
   and program a fully <strong>autonomous robot</strong> from scratch — no remote control,
   no human input during a match. The 2026 competition was held at the
-  <strong>University of Southampton</strong> and themed around chemistry, with robots
-  tasked with collecting coloured boxes representing acids (red) and bases (blue).
+  <strong>University of Southampton</strong> and themed around chemistry. Robots were tasked
+  with collecting coloured boxes — red (acid) and blue (base) — with scoring based on how far
+  from neutral pH 7 a team could push their tally. Collecting both colours cancelled each other
+  out, adding a layer of strategic decision-making to every match.
 </p>
-<p class="project-body">
-  The scoring system rewarded teams for moving their pH level as far from neutral (pH 7)
-  as possible — collecting an acid and a base would cancel each other out, adding a layer
-  of strategic decision-making to the challenge. Our robot competed against over 20 teams,
-  finishing <strong>4th overall</strong> and winning the <strong>Robot &amp; Team Image Award</strong>.
+<p class="body-text reveal">
+  Our robot competed against over 20 teams across two full days. After finishing
+  <strong>5th in the league stage</strong>, we fought back through the lower knockout bracket
+  to reach the <strong>Grand Final</strong>, placing <strong>4th overall</strong> and winning
+  the <strong>Robot &amp; Team Image Award</strong>.
 </p>
 
-<!-- My Role -->
-<div class="project-section-label">// My Role</div>
-<div class="role-card">
-  <div class="role-card-title">Head Chassis Engineer</div>
-  <div class="role-card-desc">
-    Responsible for the physical design and manufacture of the robot's chassis — the structural
-    backbone that everything else mounts to. Led all fabrication work, drawing on my Design &amp;
-    Technology background to produce a chassis that was both competition-legal and mechanically
-    robust under match conditions.
+<div class="section-label reveal">// My Role</div>
+<div class="role-card reveal">
+  <div class="role-title">Head Chassis Engineer</div>
+  <div class="role-desc">
+    Responsible for the complete physical design and manufacture of the robot's chassis —
+    the structural backbone everything else mounts to. Led all fabrication work from initial
+    CAD modelling through to cutting, assembly, and hardware integration on competition day.
   </div>
 </div>
-<p class="project-body">
-  Alongside chassis design, I was responsible for <strong>hardware integration</strong> —
-  ensuring all electronic components, motors, sensors, and wiring were mounted and routed
-  correctly within the strict rules set out by Student Robotics. This meant cross-referencing
-  the competition rulebook throughout the build process to confirm full compliance before
-  every match.
-</p>
 
-<!-- The Challenge -->
-<div class="project-section-label">// The Challenge</div>
-<p class="project-body">
-  Building a robot that operates entirely autonomously presents a different set of engineering
-  problems compared to a manually controlled machine. Every physical decision — wheel placement,
-  centre of gravity, arm geometry — directly affects the robot's ability to sense its environment
-  and execute its software. Working closely with our programming team, I adapted the chassis
-  design iteratively to support the sensors and mechanisms they needed to implement our strategy.
-</p>
-<p class="project-body">
-  The competition environment itself is unpredictable: lighting varies, other robots interact
-  with yours, and minor manufacturing tolerances compound over the course of a match. Designing
-  for robustness under those conditions was one of the most valuable engineering lessons the
-  project taught me.
-</p>
+<div class="section-label reveal">// Project Timeline</div>
+
+<div class="project-timeline">
+
+  <!-- 1. KICKSTART -->
+  <div class="phase reveal">
+    <div class="phase-date">October 2025</div>
+    <div class="phase-title">Kickstart</div>
+    <p class="phase-body">
+      The competition opened with the <strong>Kickstart Event</strong>, where the challenge
+      brief was released and teams assembled for the first time. Understanding the pH-themed
+      scoring system deeply enough to form a coherent strategy was the first engineering
+      task — before any tools or software were touched.
+    </p>
+    <img src="/assets/images/robotics/team-kickstart.jpg"
+         alt="The team at the Kickstart event" class="phase-img">
+  </div>
+
+  <!-- 2. RESEARCH -->
+  <div class="phase reveal">
+    <div class="phase-date">October – November 2025</div>
+    <div class="phase-title">Research &amp; Strategy</div>
+    <p class="phase-body">
+      Before committing to any design, the team researched the core engineering challenges:
+      <strong>vision systems</strong> for box detection, <strong>movement strategies</strong>
+      for arena navigation, and <strong>collection mechanisms</strong>. We also studied the
+      scoring system carefully — consistent collection of one colour was strategically safer
+      than chasing two and risking cancellation.
+    </p>
+    <p class="phase-body">
+      The key insight that shaped the entire build: rather than designing a complex arm or
+      suction mechanism, we would make the <strong>chassis geometry itself do the collection
+      work</strong>. A U-shaped chassis wide enough to drive over floor-level boxes, combined
+      with drop-down front gates to trap them on reversal. Simpler, lighter, and fewer
+      things to break.
+    </p>
+  </div>
+
+  <!-- 3. DESIGN -->
+  <div class="phase reveal">
+    <div class="phase-date">November 2025</div>
+    <div class="phase-title">Design &amp; CAD</div>
+    <p class="phase-body">
+      With the strategy set, I translated it into a physical design using
+      <strong>Autodesk Inventor</strong>. The chassis was modelled as a two-level MDF
+      structure — a lower bay housing the drive system, and an upper platform keeping all
+      electronics and circuitry easily accessible between matches. The U-shape was dimensioned
+      to straddle competition boxes while remaining within the robot size limits in the rulebook.
+    </p>
+    <p class="phase-body">
+      Alongside the mechanical design, the team developed the robot's <strong>visual
+      identity</strong> — including a custom competition badge — which would later contribute
+      to winning the Image Award.
+    </p>
+    <div class="phase-img-grid">
+      <img src="/assets/images/robotics/cad-model.jpg"
+           alt="Chassis CAD model in Autodesk Inventor">
+      <img src="/assets/images/robotics/badge-design.jpg"
+           alt="Team badge design in progress">
+    </div>
+  </div>
+
+  <!-- 4. MANUFACTURE -->
+  <div class="phase reveal">
+    <div class="phase-date">November 2025 – January 2026</div>
+    <div class="phase-title">Manufacture</div>
+    <p class="phase-body">
+      All chassis panels were cut from <strong>MDF sheet</strong> using the bandsaw,
+      labelled before cutting to keep assembly clean and unambiguous. The U-shaped frame
+      was built in stages — side walls first, then the internal divider separating the
+      drive bay from the electronics platform. Drive motors and servo mounts were fitted
+      directly to the lower chassis walls, keeping the centre of gravity as low as possible.
+    </p>
+    <div class="phase-img-grid">
+      <img src="/assets/images/robotics/manufacture-cutting.jpg"
+           alt="MDF panel being cut on the bandsaw">
+      <img src="/assets/images/robotics/manufacture-parts.jpg"
+           alt="Cut MDF panels laid out before assembly">
+    </div>
+    <img src="/assets/images/robotics/chassis-assembly.jpg"
+         alt="Early chassis assembly on the workbench"
+         class="phase-img" style="margin-top: 4px;">
+  </div>
+
+  <!-- 5. ELECTRONICS -->
+  <div class="phase reveal">
+    <div class="phase-date">January 2026</div>
+    <div class="phase-title">Electronics &amp; Integration</div>
+    <p class="phase-body">
+      With the chassis structurally complete, the programming team's electronics were
+      integrated — Raspberry Pi brain, motor controllers, camera, and all associated
+      wiring, routed through the chassis without fouling the drive system. My role was
+      <strong>hardware integration</strong>: ensuring secure mounting, clean routing,
+      and cross-referencing the Student Robotics rulebook throughout to confirm
+      full compliance before every test.
+    </p>
+    <div class="phase-img-grid">
+      <img src="/assets/images/robotics/electronics-integration.jpg"
+           alt="Electronics being fitted into the chassis">
+      <img src="/assets/images/robotics/robot-complete.jpg"
+           alt="Completed robot with full electronics installed">
+    </div>
+  </div>
+
+  <!-- 6. TESTING -->
+  <div class="phase reveal">
+    <div class="phase-date">February – March 2026</div>
+    <div class="phase-title">Testing &amp; Simulation</div>
+    <p class="phase-body">
+      The final pre-competition phase involved running the robot through a series of
+      <strong>simulation challenges</strong> and physical test arenas to validate software
+      behaviour and identify mechanical issues under match conditions. The gate mechanism
+      was tested repeatedly to confirm it deployed reliably on reversal — it was the most
+      mechanically critical part of the collection strategy.
+    </p>
+    <img src="/assets/images/robotics/testing.jpg"
+         alt="Robot during the testing phase" class="phase-img">
+  </div>
+
+  <!-- 7. COMPETITION — finale -->
+  <div class="phase finale reveal">
+    <div class="phase-date">April 2026 · University of Southampton</div>
+    <div class="phase-title">Competition Day</div>
+    <p class="phase-body">
+      Competition day arrived after a tense final evening — the robot had stopped working
+      entirely the night before, requiring an emergency fix before the doors opened at
+      Southampton. It was the sharpest test of the whole project: diagnose, fix, and be
+      competition-ready under real pressure.
+    </p>
+    <p class="phase-body">
+      The competition ran in two stages. The first day and a half was a
+      <strong>league stage</strong> of round-robin matches. Our robot collected
+      <strong>one box per match consistently</strong> — not the ceiling we had aimed for,
+      but reliable. Many robots scored nothing at all, and our consistency pushed us to
+      <strong>5th in the league</strong>, winning first place in 6 of our 8 matches.
+    </p>
+    <p class="phase-body">
+      The top 8 teams seeded into the knockout bracket. In the
+      <strong>upper semi-final</strong> we faced the eventual winners Gymnasium Markt
+      Indersdorf, Hills Road, and The Ladies' College — losing and dropping to the
+      lower bracket. In the <strong>lower semi-final</strong>, we beat Haberdashers'
+      Boys and Headington Rye to fight our way back to the
+      <strong>Grand Final</strong>. We finished <strong>4th overall</strong> out of
+      20+ teams, and collected the <strong>Robot &amp; Team Image Award</strong>.
+    </p>
+
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="result-card-value">5th</div>
+        <div class="result-card-label">League stage · 63 points</div>
+      </div>
+      <div class="result-card">
+        <div class="result-card-value">4th</div>
+        <div class="result-card-label">Grand Final · overall finish</div>
+      </div>
+      <div class="result-card">
+        <div class="result-card-value">6/8</div>
+        <div class="result-card-label">League matches won outright</div>
+      </div>
+      <div class="result-card">
+        <div class="result-card-value">🏆</div>
+        <div class="result-card-label">Robot &amp; Team Image Award</div>
+      </div>
+    </div>
+
+    <div class="phase-img-grid" style="margin-top: 20px;">
+      <img src="/assets/images/robotics/competition-match.jpg"
+           alt="Robot competing on the arena floor">
+      <img src="/assets/images/robotics/competition-award.jpg"
+           alt="Robot with the Image Award certificate">
+    </div>
+    <img src="/assets/images/robotics/podium.jpg"
+         alt="Team on stage receiving Fourth Place at Student Robotics 2026"
+         class="phase-img" style="margin-top: 4px;">
+  </div>
+
+</div>
+
+<!-- CREST Report — update href when PDF is ready -->
+<a href="#" class="report-link reveal">
+  <div class="report-link-icon">📄</div>
+  <div class="report-link-text">
+    <div class="report-link-title">CREST Award Report</div>
+    <div class="report-link-sub">Full technical write-up · Coming soon</div>
+  </div>
+  <div class="report-link-arrow">→</div>
+</a>
