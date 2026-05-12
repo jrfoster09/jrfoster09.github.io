@@ -1,0 +1,1016 @@
+---
+layout: default
+title: Suspension Geometry Simulator
+label: Engineering · Interactive Tool
+---
+
+<style>
+
+  /* ── JUMP BUTTON ── */
+  .jump-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(201,168,76,0.35);
+    padding: 10px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    transition: border-color 0.3s, background 0.3s;
+    margin-bottom: 48px;
+  }
+  .jump-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+
+  /* ── THEORY SECTIONS ── */
+  .theory-section {
+    margin-bottom: 64px;
+    scroll-margin-top: 80px;
+  }
+  .theory-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .theory-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  .theory-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.88;
+    margin-bottom: 14px;
+  }
+  .theory-body strong { color: var(--white); font-weight: 400; }
+  .theory-img {
+    width: 100%;
+    max-height: 340px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin: 24px 0;
+    filter: brightness(0.88);
+    border: 1px solid rgba(201,168,76,0.12);
+  }
+  .theory-img-caption {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: -16px;
+    margin-bottom: 24px;
+  }
+  .theory-divider {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent);
+    margin: 64px 0;
+  }
+  .key-point {
+    border-left: 2px solid var(--gold);
+    padding: 12px 18px;
+    background: rgba(201,168,76,0.04);
+    margin: 20px 0;
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.75;
+  }
+  .key-point strong { color: var(--white); font-weight: 400; }
+
+  /* ── MATHS BLOCK ── */
+  .maths-block {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--white-soft);
+    line-height: 2;
+  }
+  .maths-block .eq { color: var(--gold); }
+
+  /* ── SIMULATOR SECTION ── */
+  .sim-section {
+    scroll-margin-top: 80px;
+    margin-top: 16px;
+  }
+  .sim-header {
+    margin-bottom: 28px;
+  }
+
+  /* sim container */
+  .sim-wrap {
+    border: 1px solid rgba(201,168,76,0.22);
+    background: rgba(255,255,255,0.008);
+    overflow: hidden;
+  }
+
+  /* diagram */
+  .sim-diagram {
+    background: rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    position: relative;
+    padding: 0;
+  }
+  #sim-canvas {
+    display: block;
+    width: 100%;
+  }
+
+  /* stats bar */
+  .sim-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .sim-stat {
+    padding: 14px 16px;
+    border-right: 1px solid rgba(201,168,76,0.1);
+    position: relative;
+  }
+  .sim-stat:last-child { border-right: none; }
+  .sim-stat-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .sim-stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+  }
+  .sim-stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .sim-stat-unit {
+    font-size: 11px;
+    color: var(--white-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    margin-left: 3px;
+  }
+
+  /* help button */
+  .help-btn {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.35);
+    background: transparent;
+    color: var(--gold);
+    font-size: 9px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    line-height: 1;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .help-btn:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); }
+
+  /* help box */
+  .help-box {
+    display: none;
+    position: absolute;
+    left: 0; right: 0;
+    top: 100%;
+    background: #1a1a18;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 14px 16px;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.72;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .help-box.open { display: block; }
+  .help-box strong { color: var(--white); font-weight: 400; }
+  .help-box a { color: #7ba7d4; text-decoration: underline; text-decoration-color: rgba(123,167,212,0.4); }
+  .help-box a:hover { text-decoration-color: #7ba7d4; }
+  .help-box-impact {
+    margin-top: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* graph + controls row */
+  .sim-lower {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+  }
+  .sim-controls {
+    padding: 20px;
+    border-right: 1px solid rgba(201,168,76,0.1);
+  }
+  .sim-graph-panel {
+    padding: 16px;
+    border-left: 1px solid rgba(201,168,76,0.1);
+  }
+  .sim-graph-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-bottom: 10px;
+  }
+  #graph-canvas { display: block; width: 100%; }
+
+  /* slider groups */
+  .ctrl-group { margin-bottom: 18px; }
+  .ctrl-group-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+  .ctrl-row {
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .ctrl-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .ctrl-label-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--white-soft);
+  }
+  .ctrl-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+  input[type=range] { width: 100%; }
+
+  /* presets */
+  .preset-row {
+    padding: 14px 20px;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .preset-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-right: 4px;
+  }
+  .preset-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border: 1px solid rgba(201,168,76,0.25);
+    background: transparent;
+    color: var(--white-muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .preset-btn:hover { border-color: rgba(201,168,76,0.6); color: var(--white); }
+  .preset-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
+
+  @media (max-width: 600px) {
+    .sim-stats { grid-template-columns: repeat(2, 1fr); }
+    .sim-lower { grid-template-columns: 1fr; }
+    .sim-graph-panel { border-left: none; border-top: 1px solid rgba(201,168,76,0.1); }
+  }
+
+</style>
+
+<!-- ═══════════════════════════════════════
+     INTRO
+════════════════════════════════════════ -->
+<div class="theory-section reveal">
+  <div class="theory-label">// Engineering · Interactive Tool</div>
+  <div class="theory-title" style="font-size:42px;">Double-Wishbone<br>Suspension Geometry</div>
+  <p class="theory-body">
+    Formula 1 cars use <strong>double-wishbone suspension</strong> at every corner. The geometry
+    of the wishbone arms — their lengths, angles, and mounting positions — determines how the
+    tyre behaves mid-corner: how much it tilts, how well it grips, and how the car's body rolls.
+    Getting this geometry right is one of the most fundamental jobs in race car engineering.
+  </p>
+  <p class="theory-body">
+    This page walks through the theory from first principles, then lets you explore it interactively
+    in the simulator below. If you already know the theory, skip straight to the tool.
+  </p>
+  <a href="#simulator" class="jump-btn reveal">Skip to simulator →</a>
+</div>
+
+<!-- ═══════════════════════════════════════
+     THEORY 1: CAMBER
+════════════════════════════════════════ -->
+<div class="theory-section reveal" id="theory-camber">
+  <div class="theory-label">// 01</div>
+  <div class="theory-title">Camber Angle</div>
+  <p class="theory-body">
+    <strong>Camber</strong> is the angle of the wheel relative to vertical, viewed from the front
+    of the car. Zero camber means the wheel is perfectly upright. <strong>Negative camber</strong>
+    means the top of the wheel tilts inward toward the car. Positive camber tilts it outward.
+  </p>
+  <img src="/assets/images/suspension/camber-diagram.png"
+       alt="Camber angle diagram showing negative, zero and positive camber"
+       class="theory-img">
+  <p class="theory-img-caption">Negative, zero, and positive camber — viewed from the front of the car</p>
+  <p class="theory-body">
+    When a car corners hard, the tyre deforms and its contact patch — the part touching the road
+    — wants to peel away on one edge. A small amount of <strong>negative camber counteracts this</strong>,
+    keeping more of the tyre flat on the road and maximising grip. F1 cars typically run −3° to −4°
+    of static negative camber at the front because the cornering forces are so extreme.
+  </p>
+  <div class="key-point">
+    The problem: as the suspension moves up and down, camber changes. A geometry that gives perfect
+    camber when stationary might give terrible camber mid-corner. <strong>Designing how camber changes
+    through suspension travel is the whole game.</strong>
+  </div>
+</div>
+
+<div class="theory-divider"></div>
+
+<!-- ═══════════════════════════════════════
+     THEORY 2: DOUBLE WISHBONE
+════════════════════════════════════════ -->
+<div class="theory-section reveal" id="theory-wishbone">
+  <div class="theory-label">// 02</div>
+  <div class="theory-title">The Double-Wishbone Layout</div>
+  <p class="theory-body">
+    A <strong>double-wishbone suspension</strong> uses two A-shaped arms — upper and lower — connecting
+    the wheel hub to the chassis. Each arm pivots at two points on the chassis side and meets the hub
+    at a single ball joint on the wheel side. As the wheel moves up and down, both arms swing through arcs.
+  </p>
+  <img src="/assets/images/suspension/double-wishbone-labelled.jpeg"
+       alt="Labelled double wishbone suspension showing upper arm, lower arm, upright and chassis mounts"
+       class="theory-img">
+  <p class="theory-img-caption">The double-wishbone layout — upper arm, lower arm, upright, and chassis mounting points</p>
+  <p class="theory-body">
+    The critical detail: the <strong>upper arm is shorter than the lower arm</strong>. This is
+    deliberate. If both arms were the same length, the wheel would move in a perfect parallelogram —
+    staying perfectly vertical at all times. That sounds ideal, but in a corner the car rolls and the
+    wheel simply tilts with the body, losing contact patch.
+  </p>
+  <p class="theory-body">
+    Because the upper arm is shorter, as the wheel compresses upward in a corner, the top of the
+    wheel is pulled inward slightly faster than the bottom. The wheel <strong>gains negative camber
+    automatically</strong> — fighting the roll and keeping the tyre flat on the road. This is built
+    into the geometry passively, with no electronics or active components.
+  </p>
+  <div class="key-point">
+    F1 uses double-wishbone at every corner because it gives engineers <strong>precise control</strong>
+    over both camber change and roll centre height — something MacPherson struts, used in most road cars,
+    cannot offer.
+  </div>
+</div>
+
+<div class="theory-divider"></div>
+
+<!-- ═══════════════════════════════════════
+     THEORY 3: INSTANT CENTRE
+════════════════════════════════════════ -->
+<div class="theory-section reveal" id="theory-instant-centre">
+  <div class="theory-label">// 03</div>
+  <div class="theory-title">The Instant Centre</div>
+  <p class="theory-body">
+    The two wishbone arms are at slightly different angles. If you extend a straight line through each
+    arm outward away from the car, those two lines eventually meet at a point in space. That meeting
+    point is called the <strong>instant centre</strong>.
+  </p>
+  <img src="/assets/images/suspension/instant-centre-diagram.avif"
+       alt="Suspension diagram showing wishbone lines extended to meet at the instant centre"
+       class="theory-img">
+  <p class="theory-img-caption">The instant centre — found by extending both wishbone lines until they intersect</p>
+  <p class="theory-body">
+    At any given moment, the wheel assembly isn't just moving straight up and down — it's
+    <strong>rotating about the instant centre</strong>. Think of it like the wheel is on an invisible
+    arm, pivoting around that point. The instant centre is the tip of that invisible arm.
+  </p>
+  <div class="key-point">
+    The instant centre moves as the suspension travels — hence <em>instant</em>, meaning it is only
+    valid at that precise moment. <strong>The position of the instant centre determines the arc the
+    wheel travels through and how aggressively camber changes.</strong> The closer the instant centre
+    is to the wheel, the more aggressively camber changes in bump.
+  </div>
+  <p class="theory-body">
+    If the wishbones were parallel, the lines would never meet — the instant centre would be at infinity
+    and the wheel would move in a perfectly straight vertical line. No camber change at all, and no ability
+    to tune handling behaviour.
+  </p>
+</div>
+
+<div class="theory-divider"></div>
+
+<!-- ═══════════════════════════════════════
+     THEORY 4: ROLL CENTRE
+════════════════════════════════════════ -->
+<div class="theory-section reveal" id="theory-roll-centre">
+  <div class="theory-label">// 04</div>
+  <div class="theory-title">The Roll Centre</div>
+  <p class="theory-body">
+    Once you have the instant centre, finding the roll centre is one more step. Draw a line from
+    the instant centre down to the <strong>contact patch</strong> — the point where the tyre touches
+    the ground. Where that line crosses the <strong>centreline of the car</strong> is the roll centre.
+  </p>
+  <img src="/assets/images/suspension/roll-centre-diagram.webp"
+       alt="Diagram showing the line from instant centre to contact patch crossing the car centreline at the roll centre"
+       class="theory-img">
+  <p class="theory-img-caption">The roll centre — where the line from the instant centre to the contact patch crosses the car's centreline</p>
+  <p class="theory-body">
+    The roll centre is the point around which the <strong>entire car body rotates</strong> when it
+    rolls in a corner. Think of it as the pivot point of the car's lean. When the car corners hard,
+    the lateral load acts through the centre of gravity — which sits above the roll centre. This
+    creates a moment (a turning force) about the roll centre, rotating the body and compressing the
+    outer suspension.
+  </p>
+  <div class="key-point">
+    <strong>Higher roll centre</strong> → less body roll, but harsher lateral load transfer through
+    the suspension. <strong>Lower roll centre</strong> → more body roll, but smoother and more
+    progressive. F1 cars run the roll centre just a few centimetres above the ground for precise
+    balance — and because it moves as the suspension compresses, it must be tuned across the full
+    range of travel, not just at ride height.
+  </div>
+</div>
+
+<div class="theory-divider"></div>
+
+<!-- ═══════════════════════════════════════
+     THEORY 5: THE MATHS
+════════════════════════════════════════ -->
+<div class="theory-section reveal" id="theory-maths">
+  <div class="theory-label">// 05</div>
+  <div class="theory-title">The Mathematics</div>
+  <p class="theory-body">
+    Every calculation in the simulator below comes from coordinate geometry — nothing beyond A-level
+    maths. Each suspension component is represented as a point in 2D space (x, y), viewed from the
+    front of the car. The origin sits at the contact patch on the car's centreline.
+  </p>
+  <div class="maths-block">
+    <span class="eq">Step 1 — Define four pivot points as (x, y) coordinates:</span><br>
+    Lower inner pivot:  (x₁, y₁) — chassis side, lower arm<br>
+    Lower outer pivot:  (x₂, y₂) — wheel side, lower arm<br>
+    Upper inner pivot:  (x₃, y₃) — chassis side, upper arm<br>
+    Upper outer pivot:  (x₄, y₄) — wheel side, upper arm<br>
+    <br>
+    <span class="eq">Step 2 — Find line equations for each wishbone:</span><br>
+    gradient m = (y₂ - y₁) / (x₂ - x₁)<br>
+    intercept c = y₁ - m·x₁<br>
+    → y = mx + c  (repeat for upper arm)<br>
+    <br>
+    <span class="eq">Step 3 — Solve simultaneously for the Instant Centre:</span><br>
+    m₁x + c₁ = m₂x + c₂<br>
+    x_IC = (c₂ - c₁) / (m₁ - m₂)<br>
+    y_IC = m₁·x_IC + c₁<br>
+    <br>
+    <span class="eq">Step 4 — Find the Roll Centre:</span><br>
+    Draw line from IC to contact patch (x_cp, 0)<br>
+    Substitute x = 0 → y_RC = roll centre height
+  </div>
+  <p class="theory-body">
+    The camber angle is found from the geometry of the upright — the angle between the line connecting
+    the lower outer pivot to the upper outer pivot, and the vertical. As bump travel changes, all four
+    pivot positions shift, which means the instant centre moves, the roll centre moves, and the camber
+    angle changes. The simulator recalculates all of this in real time.
+  </p>
+</div>
+
+<div class="theory-divider"></div>
+
+<!-- ═══════════════════════════════════════
+     SIMULATOR
+════════════════════════════════════════ -->
+<div class="sim-section reveal" id="simulator">
+  <div class="sim-header">
+    <div class="theory-label">// Interactive Tool</div>
+    <div class="theory-title">Suspension Geometry Simulator</div>
+    <p class="theory-body">
+      Adjust the geometry using the sliders below. Every number updates in real time —
+      try loading the F1 preset and dragging the wheel travel slider to see how camber
+      and roll centre behave through a corner. Click the <strong>?</strong> buttons for
+      an explanation of any parameter.
+    </p>
+  </div>
+
+  <div class="sim-wrap">
+
+    <!-- DIAGRAM -->
+    <div class="sim-diagram">
+      <canvas id="sim-canvas" height="320"></canvas>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="sim-stats">
+
+      <div class="sim-stat" id="stat-camber">
+        <div class="sim-stat-top">
+          <div class="sim-stat-label">Camber angle</div>
+          <button class="help-btn" onclick="toggleHelp('help-camber')">?</button>
+        </div>
+        <div><span class="sim-stat-value" id="val-camber">-2.1</span><span class="sim-stat-unit">deg</span></div>
+        <div class="help-box" id="help-camber">
+          <strong>Camber angle</strong> is the tilt of the wheel relative to vertical, viewed from the front.
+          Negative means the top leans inward. F1 cars run −3° to −4° to maximise tyre contact in corners.
+          As you drag the bump slider, watch how camber changes — this is <a href="#theory-camber">camber gain</a>,
+          the whole reason for using a double-wishbone over a simpler strut.
+          <div class="help-box-impact">Most impacted by: upper arm length · upper mount height</div>
+        </div>
+      </div>
+
+      <div class="sim-stat" id="stat-rc">
+        <div class="sim-stat-top">
+          <div class="sim-stat-label">Roll centre height</div>
+          <button class="help-btn" onclick="toggleHelp('help-rc')">?</button>
+        </div>
+        <div><span class="sim-stat-value" id="val-rc">48</span><span class="sim-stat-unit">mm</span></div>
+        <div class="help-box" id="help-rc">
+          <strong>Roll centre height</strong> is the point the car's body pivots around when it leans in a corner.
+          Think of it like a seesaw pivot — higher means less lean but harsher load through the suspension,
+          lower means more lean but smoother. F1 runs it just a few centimetres above the ground.
+          Learn how it's calculated: <a href="#theory-roll-centre">Roll Centre</a> ·
+          <a href="#theory-instant-centre">Instant Centre</a>.
+          <div class="help-box-impact">Most impacted by: upper mount height · lower mount height</div>
+        </div>
+      </div>
+
+      <div class="sim-stat" id="stat-ic">
+        <div class="sim-stat-top">
+          <div class="sim-stat-label">Instant centre dist.</div>
+          <button class="help-btn" onclick="toggleHelp('help-ic')">?</button>
+        </div>
+        <div><span class="sim-stat-value" id="val-ic">840</span><span class="sim-stat-unit">mm</span></div>
+        <div class="help-box" id="help-ic">
+          <strong>Instant centre distance</strong> is how far the <a href="#theory-instant-centre">instant centre</a>
+          sits from the wheel. The wheel pivots around this point as it moves up and down.
+          A closer instant centre means more aggressive camber change per mm of travel.
+          A distant one (like F1) gives a gentler, more linear camber curve.
+          <div class="help-box-impact">Most impacted by: arm lengths · arm angle (mount heights)</div>
+        </div>
+      </div>
+
+      <div class="sim-stat" id="stat-bump">
+        <div class="sim-stat-top">
+          <div class="sim-stat-label">Wheel travel</div>
+          <button class="help-btn" onclick="toggleHelp('help-bump')">?</button>
+        </div>
+        <div><span class="sim-stat-value" id="val-bump">0</span><span class="sim-stat-unit">mm</span></div>
+        <div class="help-box" id="help-bump">
+          <strong>Wheel travel</strong> shows how far the wheel has moved from its rest position.
+          Positive (bump) means the wheel is compressed upward — exactly what happens to the outside
+          wheel mid-corner as the car rolls. Negative (droop) is the inside wheel lifting away.
+          All the other values update as this changes. See: <a href="#theory-camber">why camber matters in bump</a>.
+          <div class="help-box-impact">This is the primary input — all other values respond to it</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LOWER: CONTROLS + GRAPH -->
+    <div class="sim-lower">
+
+      <div class="sim-controls">
+
+        <!-- BUMP -->
+        <div class="ctrl-group">
+          <div class="ctrl-group-label">Wheel travel</div>
+          <div class="ctrl-row">
+            <div class="ctrl-label">
+              <div class="ctrl-label-left">
+                <span>Bump / Droop</span>
+                <button class="help-btn" onclick="toggleHelp('help-bump-sl')">?</button>
+              </div>
+              <span class="ctrl-value" id="disp-bump">0 mm</span>
+            </div>
+            <input type="range" id="sl-bump" min="-80" max="80" value="0" step="1" oninput="simUpdate()">
+            <div class="help-box" id="help-bump-sl">
+              Drag right for <strong>bump</strong> (wheel compresses up — outside wheel in a corner).
+              Drag left for <strong>droop</strong> (wheel drops — inside wheel in a corner).
+              This is the most important slider — it shows the geometry changing in real time as the
+              car corners. See: <a href="#theory-camber">camber angle</a> ·
+              <a href="#theory-roll-centre">roll centre</a>.
+              <div class="help-box-impact">Primary input — drives all geometry changes</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ARM LENGTHS -->
+        <div class="ctrl-group">
+          <div class="ctrl-group-label">Arm lengths</div>
+          <div class="ctrl-row">
+            <div class="ctrl-label">
+              <div class="ctrl-label-left">
+                <span>Upper arm length</span>
+                <button class="help-btn" onclick="toggleHelp('help-ulen')">?</button>
+              </div>
+              <span class="ctrl-value" id="disp-ulen">200 mm</span>
+            </div>
+            <input type="range" id="sl-ulen" min="100" max="300" value="200" step="1" oninput="simUpdate()">
+            <div class="help-box" id="help-ulen">
+              The <strong>upper wishbone</strong> is deliberately shorter than the lower arm.
+              This length difference is what causes <a href="#theory-camber">camber gain in bump</a>.
+              Shorter upper arm = more aggressive camber gain. Try shortening it and watch what
+              happens to camber as you move the bump slider. F1 uses a very short upper arm relative
+              to the lower for maximum camber control.
+              <div class="help-box-impact">Directly controls camber gain rate · affects IC distance</div>
+            </div>
+          </div>
+          <div class="ctrl-row">
+            <div class="ctrl-label">
+              <div class="ctrl-label-left">
+                <span>Lower arm length</span>
+                <button class="help-btn" onclick="toggleHelp('help-llen')">?</button>
+              </div>
+              <span class="ctrl-value" id="disp-llen">280 mm</span>
+            </div>
+            <input type="range" id="sl-llen" min="150" max="360" value="280" step="1" oninput="simUpdate()">
+            <div class="help-box" id="help-llen">
+              The <strong>lower wishbone</strong> is the longer of the two arms, forming the main
+              structural base of the suspension. A longer lower arm gives a wider, more stable
+              geometry but reduces the difference from the upper arm — affecting how much camber
+              is gained in bump. See: <a href="#theory-wishbone">why arm length difference matters</a>.
+              <div class="help-box-impact">Affects camber gain, IC position, and geometry stability</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOUNT HEIGHTS -->
+        <div class="ctrl-group">
+          <div class="ctrl-group-label">Chassis mount heights</div>
+          <div class="ctrl-row">
+            <div class="ctrl-label">
+              <div class="ctrl-label-left">
+                <span>Upper mount height</span>
+                <button class="help-btn" onclick="toggleHelp('help-umount')">?</button>
+              </div>
+              <span class="ctrl-value" id="disp-umount">280 mm</span>
+            </div>
+            <input type="range" id="sl-umount" min="180" max="380" value="280" step="1" oninput="simUpdate()">
+            <div class="help-box" id="help-umount">
+              How high the <strong>upper wishbone mounts to the chassis</strong>, measured from the ground.
+              This controls the angle of the upper arm, which has a large effect on where the
+              <a href="#theory-instant-centre">instant centre</a> sits and therefore where the
+              <a href="#theory-roll-centre">roll centre</a> falls. Raising this mount lifts the
+              roll centre. Lowering it drops it.
+              <div class="help-box-impact">Biggest single influence on roll centre height</div>
+            </div>
+          </div>
+          <div class="ctrl-row">
+            <div class="ctrl-label">
+              <div class="ctrl-label-left">
+                <span>Lower mount height</span>
+                <button class="help-btn" onclick="toggleHelp('help-lmount')">?</button>
+              </div>
+              <span class="ctrl-value" id="disp-lmount">80 mm</span>
+            </div>
+            <input type="range" id="sl-lmount" min="30" max="180" value="80" step="1" oninput="simUpdate()">
+            <div class="help-box" id="help-lmount">
+              How high the <strong>lower wishbone mounts to the chassis</strong>. Together with the
+              upper mount height, this sets the angle of both arms relative to horizontal — the
+              fundamental input that determines <a href="#theory-instant-centre">instant centre</a>
+              position and <a href="#theory-roll-centre">roll centre height</a>.
+              In F1, lower mounts are typically kept as low as possible for aerodynamic reasons.
+              <div class="help-box-impact">Works with upper mount to set roll centre height</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- GRAPH -->
+      <div class="sim-graph-panel">
+        <div class="sim-graph-title">Camber curve vs wheel travel</div>
+        <canvas id="graph-canvas" height="280"></canvas>
+      </div>
+
+    </div>
+
+    <!-- PRESETS -->
+    <div class="preset-row">
+      <span class="preset-label">Load preset:</span>
+      <button class="preset-btn active" onclick="loadPreset('f1',this)">F1</button>
+      <button class="preset-btn" onclick="loadPreset('road',this)">Road car</button>
+      <button class="preset-btn" onclick="loadPreset('rally',this)">Rally</button>
+      <button class="preset-btn" onclick="loadPreset('custom',this)">Reset</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const presets = {
+  f1:     { ulen:160, llen:300, umount:300, lmount:60,  bump:0 },
+  road:   { ulen:230, llen:270, umount:260, lmount:90,  bump:0 },
+  rally:  { ulen:210, llen:250, umount:240, lmount:100, bump:30 },
+  custom: { ulen:200, llen:280, umount:280, lmount:80,  bump:0 }
+};
+
+function loadPreset(name, btn) {
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const p = presets[name];
+  document.getElementById('sl-ulen').value   = p.ulen;
+  document.getElementById('sl-llen').value   = p.llen;
+  document.getElementById('sl-umount').value = p.umount;
+  document.getElementById('sl-lmount').value = p.lmount;
+  document.getElementById('sl-bump').value   = p.bump;
+  simUpdate();
+}
+
+function toggleHelp(id) {
+  const box = document.getElementById(id);
+  const wasOpen = box.classList.contains('open');
+  document.querySelectorAll('.help-box').forEach(b => b.classList.remove('open'));
+  if (!wasOpen) box.classList.add('open');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.classList.contains('help-btn') && !e.target.closest('.help-box')) {
+    document.querySelectorAll('.help-box').forEach(b => b.classList.remove('open'));
+  }
+});
+
+function getSliders() {
+  return {
+    bump:   parseFloat(document.getElementById('sl-bump').value),
+    ulen:   parseFloat(document.getElementById('sl-ulen').value),
+    llen:   parseFloat(document.getElementById('sl-llen').value),
+    umount: parseFloat(document.getElementById('sl-umount').value),
+    lmount: parseFloat(document.getElementById('sl-lmount').value),
+  };
+}
+
+function calcGeometry(bump, ulen, llen, umount, lmount) {
+  const canvas = document.getElementById('sim-canvas');
+  const W = canvas.width, H = canvas.height;
+  const scale = 0.48;
+  const cx = W * 0.48, cy = H * 0.82;
+
+  const bumpScale = Math.max(-80, Math.min(80, bump));
+
+  const liX = cx - llen * scale * 0.68;
+  const liY = cy - lmount * scale + bumpScale * 0.06;
+  const uiX = cx - ulen * scale * 0.68;
+  const uiY = cy - umount * scale + bumpScale * 0.06;
+
+  const loX = cx;
+  const loY = cy - lmount * scale * 0.3 + bumpScale * scale;
+  const uoX = cx + (ulen - llen) * scale * 0.12;
+  const uoY = cy - umount * scale * 0.88 + bumpScale * scale * 0.84;
+
+  function lineIntersect(x1,y1,x2,y2,x3,y3,x4,y4) {
+    const d = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4);
+    if (Math.abs(d) < 0.001) return null;
+    const t = ((x1-x3)*(y3-y4) - (y1-y3)*(x3-x4)) / d;
+    return { x: x1 + t*(x2-x1), y: y1 + t*(y2-y1) };
+  }
+
+  const ic = lineIntersect(liX,liY,loX,loY, uiX,uiY,uoX,uoY);
+  const cpX = loX;
+  const cpY = cy + 22 * scale;
+  const rc = ic ? lineIntersect(ic.x,ic.y,cpX,cpY, 20,cpY, 20,cpY-500) : null;
+
+  const camber = Math.atan2(uoX-loX, Math.abs(uoY-loY)) * 180/Math.PI * -1;
+  const rcH = rc ? Math.max(-50, Math.min(300, Math.round((cpY - rc.y) / scale * 1.05))) : 0;
+  const icDist = ic ? Math.round(Math.sqrt((ic.x-loX)**2 + (ic.y-loY)**2) / scale) : 9999;
+
+  return { liX,liY,uiX,uiY,loX,loY,uoX,uoY,ic,rc,cpX,cpY,camber,rcH,icDist,scale,cy,cx,W,H };
+}
+
+function drawDiagram(g) {
+  const canvas = document.getElementById('sim-canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, g.W, g.H);
+
+  // ground line
+  ctx.strokeStyle = 'rgba(201,168,76,0.08)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([6,8]);
+  ctx.beginPath(); ctx.moveTo(20, g.cpY); ctx.lineTo(g.W-20, g.cpY); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // car centreline
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 0.5;
+  ctx.setLineDash([4,8]);
+  ctx.beginPath(); ctx.moveTo(30, 20); ctx.lineTo(30, g.H-20); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // extended IC lines (dashed, dim)
+  if (g.ic) {
+    const icX = Math.min(g.ic.x, g.W - 10);
+    ctx.strokeStyle = 'rgba(100,160,255,0.18)';
+    ctx.lineWidth = 0.5;
+    ctx.setLineDash([4,7]);
+    ctx.beginPath(); ctx.moveTo(g.liX,g.liY); ctx.lineTo(icX, g.ic.y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(g.uiX,g.uiY); ctx.lineTo(icX, g.ic.y); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // IC dot
+    if (g.ic.x < g.W - 8) {
+      ctx.fillStyle = 'rgba(100,160,255,0.65)';
+      ctx.beginPath(); ctx.arc(g.ic.x, g.ic.y, 4, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(100,160,255,0.5)';
+      ctx.font = '11px sans-serif';
+      ctx.fillText('IC', g.ic.x + 6, g.ic.y - 4);
+    }
+
+    // RC line and dot
+    if (g.rc) {
+      ctx.strokeStyle = 'rgba(255,100,100,0.22)';
+      ctx.lineWidth = 0.5;
+      ctx.setLineDash([3,6]);
+      ctx.beginPath(); ctx.moveTo(g.ic.x, g.ic.y); ctx.lineTo(g.cpX, g.cpY); ctx.stroke();
+      ctx.setLineDash([]);
+
+      if (g.rc.y > 0 && g.rc.y < g.H) {
+        ctx.fillStyle = 'rgba(255,90,90,0.85)';
+        ctx.beginPath(); ctx.arc(g.rc.x, g.rc.y, 5, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = 'rgba(255,90,90,0.7)';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.fillText('RC', g.rc.x + 7, g.rc.y + 4);
+      }
+    }
+  }
+
+  // lower wishbone
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 3;
+  ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(g.liX, g.liY); ctx.lineTo(g.loX, g.loY); ctx.stroke();
+
+  // upper wishbone
+  ctx.beginPath(); ctx.moveTo(g.uiX, g.uiY); ctx.lineTo(g.uoX, g.uoY); ctx.stroke();
+
+  // upright
+  ctx.strokeStyle = 'rgba(220,220,220,0.65)';
+  ctx.lineWidth = 3.5;
+  ctx.beginPath(); ctx.moveTo(g.loX, g.loY); ctx.lineTo(g.uoX, g.uoY); ctx.stroke();
+
+  // tyre outline (simple rectangle suggesting tyre)
+  const tyreW = 18, tyreH = Math.abs(g.uoY - g.loY) + 10;
+  const tyreX = g.loX - tyreW/2 + (g.uoX - g.loX) * 0.5;
+  const tyreY = g.loY + (g.uoY - g.loY) * 0.5 - tyreH/2;
+  ctx.save();
+  const angle = Math.atan2(g.uoX - g.loX, -(g.uoY - g.loY));
+  ctx.translate(g.loX + (g.uoX-g.loX)*0.5, g.loY + (g.uoY-g.loY)*0.5);
+  ctx.rotate(-angle);
+  ctx.strokeStyle = 'rgba(180,180,180,0.25)';
+  ctx.lineWidth = 10;
+  ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(0, -tyreH*0.45); ctx.lineTo(0, tyreH*0.45); ctx.stroke();
+  ctx.restore();
+
+  // pivot dots
+  [[g.liX,g.liY],[g.uiX,g.uiY],[g.loX,g.loY],[g.uoX,g.uoY]].forEach(([x,y]) => {
+    ctx.fillStyle = '#c9a84c';
+    ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#141414';
+    ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI*2); ctx.fill();
+  });
+
+  // contact patch
+  ctx.fillStyle = 'rgba(200,200,200,0.4)';
+  ctx.beginPath(); ctx.arc(g.cpX, g.cpY, 4, 0, Math.PI*2); ctx.fill();
+
+  // labels
+  ctx.fillStyle = 'rgba(201,168,76,0.5)';
+  ctx.font = '10px sans-serif';
+  ctx.fillText('Upper wishbone', g.uiX + (g.uoX-g.uiX)*0.3, g.uiY + (g.uoY-g.uiY)*0.3 - 8);
+  ctx.fillText('Lower wishbone', g.liX + (g.loX-g.liX)*0.3, g.liY + (g.loY-g.liY)*0.3 + 14);
+}
+
+function drawGraph() {
+  const canvas = document.getElementById('graph-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+
+  const s = getSliders();
+  const pad = { t:16, r:12, b:28, l:28 };
+  const gw = W - pad.l - pad.r;
+  const gh = H - pad.t - pad.b;
+
+  // axes
+  ctx.strokeStyle = 'rgba(201,168,76,0.15)';
+  ctx.lineWidth = 0.5;
+  ctx.strokeRect(pad.l, pad.t, gw, gh);
+
+  // axis labels
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.font = '9px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('travel (mm)', pad.l + gw/2, H - 2);
+  ctx.save(); ctx.translate(10, pad.t + gh/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText('camber (°)', 0, 0); ctx.restore();
+
+  // tick labels
+  [-80,-40,0,40,80].forEach(v => {
+    const x = pad.l + ((v+80)/160) * gw;
+    ctx.fillText(v, x, H - pad.b + 10);
+  });
+
+  // zero camber line
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 0.5;
+  ctx.setLineDash([3,5]);
+  const zy = pad.t + (1 - (0+8)/16) * gh;
+  ctx.beginPath(); ctx.moveTo(pad.l, zy); ctx.lineTo(pad.l+gw, zy); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // camber curve — clamped so always visible
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  let first = true;
+  for (let b = -80; b <= 80; b += 2) {
+    const g = calcGeometry(b, s.ulen, s.llen, s.umount, s.lmount);
+    const camberClamped = Math.max(-7.5, Math.min(7.5, g.camber));
+    const x = pad.l + ((b+80)/160) * gw;
+    const y = pad.t + (1 - (camberClamped+8)/16) * gh;
+    if (first) { ctx.moveTo(x,y); first=false; } else { ctx.lineTo(x,y); }
+  }
+  ctx.stroke();
+
+  // current position dot
+  const cur = calcGeometry(s.bump, s.ulen, s.llen, s.umount, s.lmount);
+  const curCamber = Math.max(-7.5, Math.min(7.5, cur.camber));
+  const dotX = pad.l + ((s.bump+80)/160) * gw;
+  const dotY = pad.t + (1 - (curCamber+8)/16) * gh;
+  ctx.fillStyle = '#c9a84c';
+  ctx.beginPath(); ctx.arc(dotX, dotY, 4, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#141414';
+  ctx.beginPath(); ctx.arc(dotX, dotY, 2, 0, Math.PI*2); ctx.fill();
+}
+
+function simUpdate() {
+  const s = getSliders();
+
+  document.getElementById('disp-bump').textContent   = Math.round(s.bump)   + ' mm';
+  document.getElementById('disp-ulen').textContent   = Math.round(s.ulen)   + ' mm';
+  document.getElementById('disp-llen').textContent   = Math.round(s.llen)   + ' mm';
+  document.getElementById('disp-umount').textContent = Math.round(s.umount) + ' mm';
+  document.getElementById('disp-lmount').textContent = Math.round(s.lmount) + ' mm';
+
+  const g = calcGeometry(s.bump, s.ulen, s.llen, s.umount, s.lmount);
+
+  document.getElementById('val-camber').textContent = g.camber.toFixed(1);
+  document.getElementById('val-rc').textContent     = g.rcH;
+  document.getElementById('val-ic').textContent     = Math.min(g.icDist, 9999);
+  document.getElementById('val-bump').textContent   = Math.round(s.bump);
+
+  drawDiagram(g);
+  drawGraph();
+}
+
+// size canvases to their containers
+function sizeCanvas(id) {
+  const el = document.getElementById(id);
+  const w = el.parentElement.clientWidth;
+  el.width = w;
+  if (id === 'sim-canvas') el.height = Math.round(w * 0.42);
+  if (id === 'graph-canvas') {
+    el.height = 280;
+    el.width = el.parentElement.clientWidth;
+  }
+}
+
+window.addEventListener('load', () => {
+  sizeCanvas('sim-canvas');
+  sizeCanvas('graph-canvas');
+  simUpdate();
+});
+window.addEventListener('resize', () => {
+  sizeCanvas('sim-canvas');
+  sizeCanvas('graph-canvas');
+  simUpdate();
+});
+</script>
