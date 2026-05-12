@@ -1,0 +1,564 @@
+---
+layout: default
+title: Wishbone FEA Analysis
+label: Engineering · Finite Element Analysis
+---
+
+<style>
+
+  .project-hero {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin-bottom: 32px;
+    filter: brightness(0.88);
+  }
+
+  .project-tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .project-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.28);
+    padding: 5px 12px;
+    color: var(--gold);
+  }
+  .project-tag.white {
+    color: var(--white-muted);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+  .stat-box {
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 18px 16px;
+    background: rgba(255,255,255,0.012);
+  }
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    margin-top: 56px;
+  }
+
+  .body-text {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.88;
+    margin-bottom: 14px;
+  }
+  .body-text strong { color: var(--white); font-weight: 400; }
+
+  .key-point {
+    border-left: 2px solid var(--gold);
+    padding: 12px 18px;
+    background: rgba(201,168,76,0.04);
+    margin: 20px 0;
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--white-soft);
+    line-height: 1.75;
+  }
+  .key-point strong { color: var(--white); font-weight: 400; }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent);
+    margin: 56px 0;
+  }
+
+  /* ── ITERATION CARDS ── */
+  .iteration {
+    border: 1px solid rgba(201,168,76,0.18);
+    background: rgba(255,255,255,0.012);
+    margin-bottom: 4px;
+    overflow: hidden;
+  }
+  .iteration-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 18px 22px 16px;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .iteration-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .iteration-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+  }
+  .iteration-verdict {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid;
+  }
+  .verdict-fail  { color: rgba(220,80,80,0.8);  border-color: rgba(220,80,80,0.3); }
+  .verdict-pass  { color: rgba(100,200,100,0.8); border-color: rgba(100,200,100,0.3); }
+  .verdict-sing  { color: var(--white-muted);    border-color: rgba(255,255,255,0.1); }
+
+  .iteration-body { padding: 20px 22px 22px; }
+
+  .iteration-img-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin: 16px 0;
+  }
+  .iteration-img-pair img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.9);
+    border: 1px solid rgba(201,168,76,0.1);
+  }
+  .img-caption {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+
+  /* ── SF TABLE ── */
+  .sf-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--white-soft);
+    margin: 24px 0;
+  }
+  .sf-table th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+    text-align: left;
+    font-weight: 400;
+  }
+  .sf-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .sf-table tr:last-child td { border-bottom: none; }
+  .sf-table td.pass  { color: rgba(100,200,100,0.85); }
+  .sf-table td.fail  { color: rgba(220,80,80,0.8); }
+  .sf-table td.muted { color: var(--white-muted); }
+
+  /* ── SINGLE FULL-WIDTH IMAGE ── */
+  .full-img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.9);
+    border: 1px solid rgba(201,168,76,0.12);
+    margin: 20px 0 6px;
+  }
+
+  @media (max-width: 540px) {
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .iteration-img-pair { grid-template-columns: 1fr; }
+  }
+
+</style>
+
+<img src="/assets/images/fea-wishbone/final-von-mises.png"
+     alt="Von Mises stress plot — final optimised wishbone"
+     class="project-hero">
+
+<div class="project-tag-row reveal">
+  <span class="project-tag">Finite Element Analysis</span>
+  <span class="project-tag">Autodesk Inventor</span>
+  <span class="project-tag">Structural Engineering</span>
+  <span class="project-tag white">Self-Directed</span>
+</div>
+
+<div class="stat-row reveal">
+  <div class="stat-box">
+    <div class="stat-value">5</div>
+    <div class="stat-label">Design Iterations</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-value">5.22</div>
+    <div class="stat-label">Final Safety Factor</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-value">51.7</div>
+    <div class="stat-label">Final Max Stress · MPa</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-value">Al</div>
+    <div class="stat-label">Target Material</div>
+  </div>
+</div>
+
+<div class="section-label reveal">// Overview</div>
+
+<p class="body-text reveal">
+  This project takes the double-wishbone suspension geometry I modelled in the
+  <a href="/portfolio/projects/suspension.html" style="color:var(--gold);text-decoration:none;">Suspension Geometry Simulator</a>
+  and pushes it into the third dimension — using <strong>Finite Element Analysis (FEA)</strong>
+  in Autodesk Inventor to test whether a triangulated wishbone arm can survive realistic
+  F1 cornering loads.
+</p>
+
+<p class="body-text reveal">
+  The analysis ran through <strong>five design iterations</strong>, each addressing a structural
+  weakness found in the previous result. The goal was a geometry that produces a safety factor
+  above 2.0 against the yield strength of <strong>6061-T6 aluminium alloy</strong> — the material
+  used in real racing suspension arms — under a 3,000 N lateral braking load.
+</p>
+
+<div class="key-point reveal">
+  <strong>A note on modelling material:</strong> the FEA simulations were run using
+  <strong>steel</strong> as the assigned material in Inventor. This is because Von Mises stress
+  is a function of geometry and applied load only — it is <strong>independent of the material
+  chosen</strong>. The stress values shown in every screenshot are therefore valid for any
+  material. The safety factors below are calculated separately using the yield strength of
+  <strong>6061-T6 aluminium (270 MPa)</strong>, which is the engineering comparison that matters.
+</div>
+
+<div class="divider"></div>
+
+<div class="section-label reveal">// The Load Case</div>
+
+<p class="body-text reveal">
+  The wishbone is fixed at both inboard pickup points — the pivots where it connects to the
+  chassis — and loaded at the outboard hub connection, where cornering forces transfer from
+  the wheel into the suspension. A <strong>3,000 N lateral load</strong> was applied here,
+  representing a realistic braking and cornering scenario for a small single-seater.
+</p>
+
+<img src="/assets/images/fea-wishbone/wishbone-view.png"
+     alt="Wishbone model in Autodesk Inventor — isometric view"
+     class="full-img reveal">
+<p class="img-caption reveal">Initial wishbone geometry — isometric view in Autodesk Inventor</p>
+
+<img src="/assets/images/fea-wishbone/wishbone-top.png"
+     alt="Wishbone model — top-down view showing triangulated geometry"
+     class="full-img reveal">
+<p class="img-caption reveal">Top-down view showing the triangulated geometry and pickup points</p>
+
+<div class="divider"></div>
+
+<div class="section-label reveal">// Design Iterations</div>
+
+<!-- V1 -->
+<div class="iteration reveal">
+  <div class="iteration-header">
+    <div>
+      <div class="iteration-label">Version 01</div>
+      <div class="iteration-title">Baseline Geometry</div>
+    </div>
+    <span class="iteration-verdict verdict-fail">Fail · SF 0.53</span>
+  </div>
+  <div class="iteration-body">
+    <p class="body-text">
+      The initial model used a simple solid triangular arm with no geometry optimisation.
+      Under the 3,000 N load, the maximum Von Mises stress reached <strong>506 MPa</strong> —
+      nearly double the aluminium yield strength of 270 MPa. The stress concentrated heavily
+      at the inboard pivot roots, which have the smallest cross-section relative to the bending
+      moment applied there.
+    </p>
+    <div class="iteration-img-pair">
+      <div>
+        <img src="/assets/images/fea-wishbone/v1-von-mises.png" alt="V1 Von Mises stress plot">
+        <p class="img-caption">Von Mises stress distribution</p>
+      </div>
+      <div>
+        <img src="/assets/images/fea-wishbone/v1-safety.png" alt="V1 safety factor plot">
+        <p class="img-caption">Safety factor plot</p>
+      </div>
+    </div>
+    <p class="body-text">
+      The safety factor of 0.53 confirmed the geometry would yield immediately in service.
+      The key insight from this result was that material needed to be added at the inboard
+      roots, not distributed uniformly across the arm.
+    </p>
+  </div>
+</div>
+
+<!-- V2 -->
+<div class="iteration reveal">
+  <div class="iteration-header">
+    <div>
+      <div class="iteration-label">Version 02</div>
+      <div class="iteration-title">Root Fillets Added</div>
+    </div>
+    <span class="iteration-verdict verdict-fail">Fail · SF 0.82</span>
+  </div>
+  <div class="iteration-body">
+    <p class="body-text">
+      Generous fillets were added at all three pickup point roots to reduce the stress
+      concentration factor. This brought the peak Von Mises stress down to <strong>330 MPa</strong>
+      — a meaningful improvement but still above the 270 MPa aluminium yield limit.
+      The safety factor rose to 0.82.
+    </p>
+    <div class="iteration-img-pair">
+      <div>
+        <img src="/assets/images/fea-wishbone/v2-von-mises.png" alt="V2 Von Mises stress plot">
+        <p class="img-caption">Von Mises stress distribution</p>
+      </div>
+      <div>
+        <img src="/assets/images/fea-wishbone/v2-safety.png" alt="V2 safety factor plot">
+        <p class="img-caption">Safety factor plot</p>
+      </div>
+    </div>
+    <p class="body-text">
+      The fillet approach had reached its limit — the arm cross-section itself needed
+      rethinking. A solid flat plate was not an efficient structural form for this loading.
+    </p>
+  </div>
+</div>
+
+<!-- V3 -->
+<div class="iteration reveal">
+  <div class="iteration-header">
+    <div>
+      <div class="iteration-label">Version 03</div>
+      <div class="iteration-title">Hollow Tube Profile</div>
+    </div>
+    <span class="iteration-verdict verdict-sing">Singularity — disregarded</span>
+  </div>
+  <div class="iteration-body">
+    <p class="body-text">
+      The arm was redesigned as a hollow tube structure to investigate whether a tubular
+      section would distribute load more efficiently. The FEA returned a peak stress of
+      <strong>1,384 MPa</strong> — an implausibly high figure.
+    </p>
+    <div class="iteration-img-pair">
+      <div>
+        <img src="/assets/images/fea-wishbone/v3-von-mises.png" alt="V3 Von Mises stress plot">
+        <p class="img-caption">Von Mises stress — singularity visible at constraint point</p>
+      </div>
+      <div>
+        <img src="/assets/images/fea-wishbone/v3-safety.png" alt="V3 safety factor plot">
+        <p class="img-caption">Safety factor — artificially collapsed by singularity</p>
+      </div>
+    </div>
+    <div class="key-point">
+      <strong>Mesh singularity:</strong> this result is a known FEA artefact. When a point
+      constraint is applied to a sharp geometric feature — here, the tube wall edge at the
+      fixed pivot — the solver has no finite area to distribute the reaction force across.
+      Stress at that node tends to infinity as the mesh refines. The result is mathematically
+      meaningless and was disregarded. The constraint method needed to change before this
+      geometry could be assessed fairly.
+    </div>
+    <img src="/assets/images/fea-wishbone/connect-issue.png"
+         alt="Constraint singularity detail — connection point issue"
+         class="full-img">
+    <p class="img-caption">The problematic constraint configuration that caused the singularity</p>
+  </div>
+</div>
+
+<!-- V4 -->
+<div class="iteration reveal">
+  <div class="iteration-header">
+    <div>
+      <div class="iteration-label">Version 04</div>
+      <div class="iteration-title">Box Section with Corrected Constraints</div>
+    </div>
+    <span class="iteration-verdict verdict-pass">Pass · SF 2.33</span>
+  </div>
+  <div class="iteration-body">
+    <p class="body-text">
+      The hollow profile was replaced with a <strong>closed box section</strong> and the
+      constraint method was corrected to apply reactions across a face rather than a point
+      edge. Peak Von Mises stress dropped sharply to <strong>116 MPa</strong> — well below
+      the aluminium yield limit. Safety factor: 2.33.
+    </p>
+    <div class="iteration-img-pair">
+      <div>
+        <img src="/assets/images/fea-wishbone/v4-von-mises.png" alt="V4 Von Mises stress plot">
+        <p class="img-caption">Von Mises stress distribution</p>
+      </div>
+      <div>
+        <img src="/assets/images/fea-wishbone/v4-safety.png" alt="V4 safety factor plot">
+        <p class="img-caption">Safety factor plot — above 2.0 threshold</p>
+      </div>
+    </div>
+    <p class="body-text">
+      This was the first geometry to pass the 2.0 safety factor target. The box section
+      provides significantly better second moment of area than a solid plate for the same
+      material volume — the same principle behind I-beams and hollow structural sections
+      in real engineering. With a SF of 2.33, there was still margin to refine further.
+    </p>
+  </div>
+</div>
+
+<!-- V5 -->
+<div class="iteration reveal">
+  <div class="iteration-header">
+    <div>
+      <div class="iteration-label">Version 05</div>
+      <div class="iteration-title">Final Optimised Geometry</div>
+    </div>
+    <span class="iteration-verdict verdict-pass">Pass · SF 5.22</span>
+  </div>
+  <div class="iteration-body">
+    <p class="body-text">
+      The final iteration refined the box section geometry — adjusting wall thickness and
+      the triangulation angle to better align the arm with the principal stress directions.
+      Peak Von Mises stress fell to <strong>51.7 MPa</strong>, giving a safety factor of
+      <strong>5.22</strong> against the aluminium yield limit.
+    </p>
+    <div class="iteration-img-pair">
+      <div>
+        <img src="/assets/images/fea-wishbone/final-von-mises.png" alt="Final Von Mises stress plot">
+        <p class="img-caption">Von Mises stress — final geometry</p>
+      </div>
+      <div>
+        <img src="/assets/images/fea-wishbone/final-safety.png" alt="Final safety factor plot">
+        <p class="img-caption">Safety factor plot — SF 5.22</p>
+      </div>
+    </div>
+    <img src="/assets/images/fea-wishbone/final-displacement.png"
+         alt="Final displacement plot"
+         class="full-img">
+    <p class="img-caption">Displacement plot — final geometry under 3,000 N load</p>
+    <p class="body-text">
+      A safety factor of 5.22 is higher than strictly necessary — real F1 teams target
+      factors closer to 2.0–3.0 because every gram saved matters at that level. But for a
+      first FEA study the priority was understanding the methodology over minimum-weight
+      optimisation. The displacement plot confirms the arm deforms predictably under load,
+      with maximum displacement at the outboard hub — exactly where the geometry is least
+      constrained.
+    </p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section-label reveal">// Safety Factor Summary</div>
+
+<p class="body-text reveal">
+  The table below summarises all five iterations. Von Mises stress values come directly
+  from the FEA output and are material-independent. Safety factors are calculated against
+  the <strong>6061-T6 aluminium yield strength of 270 MPa</strong>.
+</p>
+
+<table class="sf-table reveal">
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Change Made</th>
+      <th>Max Stress (MPa)</th>
+      <th>Safety Factor</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>V1</td>
+      <td>Baseline solid arm</td>
+      <td>506</td>
+      <td class="fail">0.53</td>
+      <td class="fail">Fail</td>
+    </tr>
+    <tr>
+      <td>V2</td>
+      <td>Root fillets added</td>
+      <td>330</td>
+      <td class="fail">0.82</td>
+      <td class="fail">Fail</td>
+    </tr>
+    <tr>
+      <td>V3</td>
+      <td>Hollow tube profile</td>
+      <td class="muted">1,384*</td>
+      <td class="muted">—</td>
+      <td class="muted">Singularity</td>
+    </tr>
+    <tr>
+      <td>V4</td>
+      <td>Box section + corrected constraints</td>
+      <td>116</td>
+      <td class="pass">2.33</td>
+      <td class="pass">Pass</td>
+    </tr>
+    <tr>
+      <td>V5</td>
+      <td>Refined wall thickness + triangulation</td>
+      <td>51.7</td>
+      <td class="pass">5.22</td>
+      <td class="pass">Pass</td>
+    </tr>
+  </tbody>
+</table>
+<p class="img-caption reveal">* V3 stress value reflects a mesh singularity artefact, not a real structural result.</p>
+
+<div class="divider"></div>
+
+<div class="section-label reveal">// What I Learned</div>
+
+<p class="body-text reveal">
+  This was my first time using FEA software independently, and the process taught me as
+  much about the <strong>limitations of simulation</strong> as it did about structural
+  engineering. The V3 singularity result was initially confusing — a 1,384 MPa stress
+  figure that made no physical sense. Diagnosing it correctly required understanding how
+  FEA solvers distribute constraint reactions and why point constraints on thin-walled
+  features cause numerical instability.
+</p>
+
+<p class="body-text reveal">
+  The bigger lesson was about the relationship between <strong>cross-section geometry and
+  structural efficiency</strong>. The solid plate in V1 and V2 used more material than the
+  box section in V4 but performed far worse — because the second moment of area, not the
+  total cross-sectional area, determines bending stiffness. This is the same reason that
+  structural steel comes in I-beam or hollow rectangular profiles rather than solid bars.
+</p>
+
+<p class="body-text reveal">
+  Understanding why real teams use aluminium alloys rather than steel also came into focus
+  here: aluminium's yield strength per unit mass is higher than mild steel's, and in
+  suspension components where unsprung mass directly affects dynamic performance, that
+  trade-off is critical. The FEA gave me a quantitative basis for a design decision I
+  previously understood only qualitatively.
+</p>
